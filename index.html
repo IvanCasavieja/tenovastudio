@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tenova Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-64.png" type="image/png" sizes="64x64" />
+    <link rel="shortcut icon" href="favicon-64.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div class="logo">Tenova Studio</div>
+        <nav class="nav">
+          <a href="#inicio" data-i18n="nav.home">Inicio</a>
+          <a href="#acerca" data-i18n="nav.about">Acerca de nosotros</a>
+          <a href="#servicios" data-i18n="nav.services">Servicios</a>
+          <a href="#clientes" data-i18n="nav.clients">Clientes</a>
+          <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+        </nav>
+        <div class="lang-switch" aria-label="Idioma">
+          <button type="button" class="lang-btn is-active" data-lang="es">ES</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="pt">PT</button>
+          <button type="button" class="lang-btn" data-lang="it">IT</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="inicio" class="hero hero-cover">
+          <div class="hero-cover-overlay">
+            <h1 class="hero-title">Tenova Studio</h1>
+          </div>
+        </section>
+
+        <section id="acerca" class="about">
+          <div class="about-grid">
+            <div>
+              <h2 data-i18n="about.title">Acerca de nosotros</h2>
+              <p data-i18n="about.p1">
+                Somos un estudio boutique que une analisis profundo, creatividad
+                y tecnologia. Construimos identidades y plataformas digitales con
+                una mirada editorial: cada pieza comunica con intencion.
+              </p>
+              <p data-i18n="about.p2">
+                Acompanamos a marcas que buscan diferenciarse con una presencia
+                digital elegante y consistente. Nuestro trabajo combina estrategia,
+                diseno y desarrollo para crear experiencias que se sienten actuales
+                y sofisticadas.
+              </p>
+              <p data-i18n="about.p3">
+                Trabajamos de forma cercana, con equipos compactos y procesos
+                agiles, para que cada proyecto mantenga consistencia, un lenguaje
+                visual cuidado y resultados medibles.
+              </p>
+            </div>
+            <div class="about-card">
+              <h3 data-i18n="about.cardTitle">Lo que nos define</h3>
+              <ul>
+                <li data-i18n="about.cardItem1">Direccion creativa con foco en negocio.</li>
+                <li data-i18n="about.cardItem2">Procesos claros, entregas en etapas.</li>
+                <li data-i18n="about.cardItem3">Diseno digital con obsesion por el detalle.</li>
+              </ul>
+              <a class="text-link" href="#contacto" data-i18n="about.cardCta">Conversemos</a>
+            </div>
+          </div>
+          <div class="about-signals">
+            <div class="signal-card signal-card--marketing">
+              <div class="signal-visual">
+                <div class="signal-orb"></div>
+                <div class="signal-ring"></div>
+                <div class="signal-bars">
+                  <span style="--bar-height: 38%; --delay: 0ms"></span>
+                  <span style="--bar-height: 52%; --delay: 120ms"></span>
+                  <span style="--bar-height: 70%; --delay: 240ms"></span>
+                  <span style="--bar-height: 56%; --delay: 360ms"></span>
+                  <span style="--bar-height: 78%; --delay: 480ms"></span>
+                </div>
+              </div>
+              <div class="signal-copy">
+                <span class="signal-kicker" data-i18n="about.signal1.kicker">Marketing</span>
+                <span class="signal-value" data-i18n="about.signal1.value">+42%</span>
+                <p data-i18n="about.signal1.text">
+                  Campanas premium con resultados sostenidos.
+                </p>
+              </div>
+            </div>
+            <div class="signal-card signal-card--automation">
+              <div class="signal-visual">
+                <div class="signal-orb"></div>
+                <div class="signal-ring"></div>
+                <div class="signal-ripple"></div>
+                <div class="signal-meter">
+                  <span class="signal-meter-fill"></span>
+                </div>
+              </div>
+              <div class="signal-copy">
+                <span class="signal-kicker" data-i18n="about.signal2.kicker">Automatizaciones</span>
+                <span class="signal-value" data-i18n="about.signal2.value">-35%</span>
+                <p data-i18n="about.signal2.text">
+                  Reduccion de tiempos operativos con flujos inteligentes.
+                </p>
+              </div>
+            </div>
+            <div class="signal-card signal-card--development">
+              <div class="signal-visual">
+                <div class="signal-orb"></div>
+                <div class="signal-ring"></div>
+                <div class="signal-dots">
+                  <span style="--dot-delay: 0ms"></span>
+                  <span style="--dot-delay: 160ms"></span>
+                  <span style="--dot-delay: 320ms"></span>
+                  <span style="--dot-delay: 480ms"></span>
+                </div>
+              </div>
+              <div class="signal-copy">
+                <span class="signal-kicker" data-i18n="about.signal3.kicker">Desarrollo</span>
+                <span class="signal-value" data-i18n="about.signal3.value">1.6s</span>
+                <p data-i18n="about.signal3.text">
+                  Experiencias rapidas y solidas en cualquier dispositivo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="servicios" class="services">
+          <div class="services-inner">
+            <div class="section-header">
+              <h2 data-i18n="services.title">Servicios</h2>
+              <p data-i18n="services.subtitle">
+                Cada servicio abre un formulario dedicado para conversar sobre
+                objetivos, tiempos y presupuesto.
+              </p>
+            </div>
+            <div class="service-grid">
+            <article class="service-card" style="--delay: 0ms">
+              <img src="analisis.png" alt="Analisis" loading="lazy" />
+              <div class="card-body">
+                <h3 data-i18n="services.analysis.title">Analisis</h3>
+                <p data-i18n="services.analysis.desc">
+                  Diagnosticos de marca, auditorias digitales y data storytelling
+                  para tomar decisiones con claridad.
+                </p>
+                <a
+                  class="btn btn-outline"
+                  href="?service=Analisis#contacto"
+                  data-service="Analisis"
+                  data-i18n="services.cta"
+                >
+                  Abrir formulario
+                </a>
+              </div>
+            </article>
+
+            <article class="service-card" style="--delay: 120ms">
+              <img src="marketing.png" alt="Marketing" loading="lazy" />
+              <div class="card-body">
+                <h3 data-i18n="services.marketing.title">Marketing</h3>
+                <p data-i18n="services.marketing.desc">
+                  Narrativas, contenido premium y campanas de performance con
+                  estetica coherente y lenguaje propio.
+                </p>
+                <a
+                  class="btn btn-outline"
+                  href="?service=Marketing#contacto"
+                  data-service="Marketing"
+                  data-i18n="services.cta"
+                >
+                  Abrir formulario
+                </a>
+              </div>
+            </article>
+
+            <article class="service-card" style="--delay: 240ms">
+              <img src="desarrollo.png" alt="Desarrollo" loading="lazy" />
+              <div class="card-body">
+                <h3 data-i18n="services.desarrollo.title">Desarrollo</h3>
+                <p data-i18n="services.desarrollo.desc">
+                  Sitios web a medida, performance optimizada y experiencias
+                  responsive con identidad cuidada.
+                </p>
+                <a
+                  class="btn btn-outline"
+                  href="?service=Desarrollo#contacto"
+                  data-service="Desarrollo"
+                  data-i18n="services.cta"
+                >
+                  Abrir formulario
+                </a>
+              </div>
+            </article>
+
+            <article class="service-card" style="--delay: 360ms">
+              <img src="automatizacion.png" alt="Automatizacion" loading="lazy" />
+              <div class="card-body">
+                <h3 data-i18n="services.automatizacion.title">Automatizacion</h3>
+                <p data-i18n="services.automatizacion.desc">
+                  Flujos inteligentes, integraciones y herramientas internas para
+                  escalar procesos sin perder estilo.
+                </p>
+                <a
+                  class="btn btn-outline"
+                  href="?service=Automatizacion#contacto"
+                  data-service="Automatizacion"
+                  data-i18n="services.cta"
+                >
+                  Abrir formulario
+                </a>
+              </div>
+            </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="clientes" class="clients library-section">
+          <div class="clients-inner">
+            <div class="section-header">
+              <h2 data-i18n="clients.title">Clientes y resultados</h2>
+              <p data-i18n="clients.subtitle">
+                Marcas que confian en Tenova Studio y el impacto que generamos.
+              </p>
+            </div>
+            <div class="library" id="library">
+              <div class="library-shelves" id="library-shelves"></div>
+              <button class="library-cta" type="button" data-i18n="clients.cta">
+                Ver mas trabajos
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="contacto" class="contact contact-banner">
+          <div class="contact-overlay">
+            <div class="section-header">
+              <h2 data-i18n="contact.title">Contacto</h2>
+              <p data-i18n="contact.subtitle">
+                Contanos sobre tu proyecto. Te respondemos con una propuesta clara
+                y un plan de trabajo alineado.
+              </p>
+            </div>
+            <form
+              class="contact-form"
+              action="mailto:admin@tenovastudio.com"
+              method="post"
+              enctype="text/plain"
+            >
+              <div class="form-grid">
+                <label>
+                  <span data-i18n="form.name">Nombre</span>
+                  <input
+                    type="text"
+                    name="nombre"
+                    placeholder="Tu nombre"
+                    data-i18n-placeholder="form.name.placeholder"
+                    required
+                  />
+                </label>
+                <label>
+                  <span data-i18n="form.email">Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="tu@email.com"
+                    data-i18n-placeholder="form.email.placeholder"
+                    required
+                  />
+                </label>
+                <label>
+                  <span data-i18n="form.company">Empresa</span>
+                  <input
+                    type="text"
+                    name="empresa"
+                    placeholder="Nombre de marca"
+                    data-i18n-placeholder="form.company.placeholder"
+                    required
+                  />
+                </label>
+                <label>
+                  <span data-i18n="form.service">Servicio</span>
+                  <select name="servicio" id="servicio-select" required>
+                    <option
+                      value=""
+                      disabled
+                      selected
+                      data-i18n="form.service.placeholder"
+                    >
+                      Seleccionar servicio
+                    </option>
+                    <option value="Analisis" data-i18n="services.analysis.title">
+                      Analisis
+                    </option>
+                    <option value="Marketing" data-i18n="services.marketing.title">
+                      Marketing
+                    </option>
+                    <option value="Desarrollo" data-i18n="services.desarrollo.title">
+                      Desarrollo
+                    </option>
+                    <option
+                      value="Automatizacion"
+                      data-i18n="services.automatizacion.title"
+                    >
+                      Automatizacion
+                    </option>
+                  </select>
+                </label>
+                <label class="full">
+                  <span data-i18n="form.message">Mensaje</span>
+                  <textarea
+                    name="mensaje"
+                    rows="4"
+                    placeholder="Contanos contexto, objetivos y plazos."
+                    data-i18n-placeholder="form.message.placeholder"
+                    required
+                  ></textarea>
+                </label>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-dark" type="submit" data-i18n="form.submit">
+                  Enviar
+                </button>
+                <span class="form-note" data-i18n="form.note">
+                  Respondemos en 48 horas habiles.
+                </span>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-brand">
+          <h3>Tenova Studio</h3>
+          <p data-i18n="footer.tagline">Estudio creativo y tecnologia aplicada.</p>
+          <span data-i18n="footer.copyright">
+            (c) 2026 Tenova Studio. Todos los derechos reservados.
+          </span>
+        </div>
+        <div class="footer-links">
+          <a href="#">Instagram</a>
+          <a
+            href="https://www.linkedin.com/company/tenova-studio/?viewAsMember=true"
+            target="_blank"
+            rel="noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="#">Behance</a>
+        </div>
+        <form class="newsletter">
+          <label>
+            <span data-i18n="footer.newsletter.title">Suscribite a nuestras noticias</span>
+            <div class="newsletter-row">
+              <input
+                type="email"
+                placeholder="Tu email"
+                data-i18n-placeholder="footer.newsletter.placeholder"
+                required
+              />
+              <button
+                class="btn btn-light"
+                type="submit"
+                data-i18n="footer.newsletter.cta"
+              >
+                Suscribir
+              </button>
+            </div>
+          </label>
+        </form>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

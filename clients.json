@@ -1,0 +1,364 @@
+{
+  "clients": [
+    {
+      "id": "nuestro-alimento-diario",
+      "services": 5,
+      "name": {
+        "es": "Nuestro Alimento Diario",
+        "en": "Nuestro Alimento Diario",
+        "pt": "Nosso Alimento Diario",
+        "it": "Nostro Alimento Diario"
+      },
+      "pages": {
+        "es": [
+          {
+            "title": "Producto / App",
+            "subtitle": "Experiencia editorial",
+            "text": "Plataforma de suscripcion con foco en lectura y compra recurrente.",
+            "bullets": [
+              "UX editorial",
+              "Checkout optimizado",
+              "Sistema de recomendaciones"
+            ]
+          },
+          {
+            "title": "Analisis de datos",
+            "subtitle": "Mapa de decision",
+            "text": "Analisis de comportamiento y cohortes para mejorar conversion.",
+            "bullets": [
+              "Segmentos clave",
+              "Embudo completo",
+              "Insights accionables"
+            ]
+          },
+          {
+            "title": "Marketing / Casos",
+            "subtitle": "Campanas always on",
+            "text": "Estrategia de contenidos y performance para crecer en Latam.",
+            "bullets": [
+              "Creatividad premium",
+              "Meta + Google",
+              "KPI semanales"
+            ]
+          },
+          {
+            "title": "Automatizaciones",
+            "subtitle": "Operaciones finas",
+            "text": "Flujos integrados para CRM, email y soporte.",
+            "bullets": [
+              "Lead scoring",
+              "Secuencias email",
+              "Alertas internas"
+            ]
+          }
+        ],
+        "en": [
+          {
+            "title": "Product / App",
+            "subtitle": "Editorial experience",
+            "text": "Subscription platform focused on reading and recurring purchase.",
+            "bullets": [
+              "Editorial UX",
+              "Optimized checkout",
+              "Recommendation system"
+            ]
+          },
+          {
+            "title": "Data analysis",
+            "subtitle": "Decision map",
+            "text": "Behavior and cohort analysis to improve conversion.",
+            "bullets": [
+              "Key segments",
+              "Full funnel",
+              "Actionable insights"
+            ]
+          },
+          {
+            "title": "Marketing / Cases",
+            "subtitle": "Always on campaigns",
+            "text": "Content and performance strategy to grow in Latam.",
+            "bullets": [
+              "Premium creative",
+              "Meta + Google",
+              "Weekly KPIs"
+            ]
+          },
+          {
+            "title": "Automations",
+            "subtitle": "Operations flow",
+            "text": "Integrated flows for CRM, email, and support.",
+            "bullets": [
+              "Lead scoring",
+              "Email sequences",
+              "Internal alerts"
+            ]
+          }
+        ],
+        "pt": [
+          {
+            "title": "Produto / App",
+            "subtitle": "Experiencia editorial",
+            "text": "Plataforma de assinatura focada em leitura e compra recorrente.",
+            "bullets": [
+              "UX editorial",
+              "Checkout otimizado",
+              "Sistema de recomendacao"
+            ]
+          },
+          {
+            "title": "Analise de dados",
+            "subtitle": "Mapa de decisao",
+            "text": "Analise de comportamento e coortes para melhorar conversao.",
+            "bullets": [
+              "Segmentos chave",
+              "Funil completo",
+              "Insights acionaveis"
+            ]
+          },
+          {
+            "title": "Marketing / Casos",
+            "subtitle": "Campanhas always on",
+            "text": "Estrategia de conteudo e performance para crescer na Latam.",
+            "bullets": [
+              "Criatividade premium",
+              "Meta + Google",
+              "KPI semanais"
+            ]
+          },
+          {
+            "title": "Automacoes",
+            "subtitle": "Operacoes finas",
+            "text": "Fluxos integrados para CRM, email e suporte.",
+            "bullets": [
+              "Lead scoring",
+              "Sequencias de email",
+              "Alertas internos"
+            ]
+          }
+        ],
+        "it": [
+          {
+            "title": "Prodotto / App",
+            "subtitle": "Esperienza editoriale",
+            "text": "Piattaforma in abbonamento con focus su lettura e acquisto ricorrente.",
+            "bullets": [
+              "UX editoriale",
+              "Checkout ottimizzato",
+              "Sistema di raccomandazioni"
+            ]
+          },
+          {
+            "title": "Analisi dati",
+            "subtitle": "Mappa decisionale",
+            "text": "Analisi di comportamento e coorti per migliorare conversione.",
+            "bullets": [
+              "Segmenti chiave",
+              "Funnel completo",
+              "Insight azionabili"
+            ]
+          },
+          {
+            "title": "Marketing / Casi",
+            "subtitle": "Campagne always on",
+            "text": "Strategia di contenuto e performance per crescere in Latam.",
+            "bullets": [
+              "Creativita premium",
+              "Meta + Google",
+              "KPI settimanali"
+            ]
+          },
+          {
+            "title": "Automazioni",
+            "subtitle": "Operazioni fini",
+            "text": "Flussi integrati per CRM, email e supporto.",
+            "bullets": [
+              "Lead scoring",
+              "Sequenze email",
+              "Alert interni"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tuki",
+      "services": 4,
+      "name": {
+        "es": "Tuki",
+        "en": "Tuki",
+        "pt": "Tuki",
+        "it": "Tuki"
+      },
+      "pages": {
+        "es": [
+          {
+            "title": "Producto / App",
+            "subtitle": "Marketplace curado",
+            "text": "Redisenio total del ecommerce con foco mobile.",
+            "bullets": [
+              "Sistema modular",
+              "Busqueda rapida",
+              "Checkout express"
+            ]
+          },
+          {
+            "title": "Analisis de datos",
+            "subtitle": "Comportamiento",
+            "text": "Dashboards para entender el mix de productos.",
+            "bullets": [
+              "Top categorias",
+              "Margen por item",
+              "Rendimiento diario"
+            ]
+          },
+          {
+            "title": "Marketing / Casos",
+            "subtitle": "Go to market",
+            "text": "Campanas con creatividades premium y tono propio.",
+            "bullets": [
+              "Contenido hero",
+              "Ads iterativas",
+              "Test A/B"
+            ]
+          },
+          {
+            "title": "Automatizaciones",
+            "subtitle": "Operaciones",
+            "text": "Flujos para stock, logistica y CRM.",
+            "bullets": [
+              "Inventario vivo",
+              "Alertas de stock",
+              "Emails de recompra"
+            ]
+          }
+        ],
+        "en": [
+          {
+            "title": "Product / App",
+            "subtitle": "Curated marketplace",
+            "text": "Full ecommerce redesign with mobile focus.",
+            "bullets": [
+              "Modular system",
+              "Fast search",
+              "Express checkout"
+            ]
+          },
+          {
+            "title": "Data analysis",
+            "subtitle": "Behavior",
+            "text": "Dashboards to understand the product mix.",
+            "bullets": [
+              "Top categories",
+              "Margin per item",
+              "Daily performance"
+            ]
+          },
+          {
+            "title": "Marketing / Cases",
+            "subtitle": "Go to market",
+            "text": "Campaigns with premium creative and unique tone.",
+            "bullets": [
+              "Hero content",
+              "Iterative ads",
+              "A/B tests"
+            ]
+          },
+          {
+            "title": "Automations",
+            "subtitle": "Operations",
+            "text": "Flows for stock, logistics, and CRM.",
+            "bullets": [
+              "Live inventory",
+              "Stock alerts",
+              "Repurchase emails"
+            ]
+          }
+        ],
+        "pt": [
+          {
+            "title": "Produto / App",
+            "subtitle": "Marketplace curado",
+            "text": "Redesign completo do ecommerce com foco mobile.",
+            "bullets": [
+              "Sistema modular",
+              "Busca rapida",
+              "Checkout expresso"
+            ]
+          },
+          {
+            "title": "Analise de dados",
+            "subtitle": "Comportamento",
+            "text": "Dashboards para entender o mix de produtos.",
+            "bullets": [
+              "Top categorias",
+              "Margem por item",
+              "Performance diaria"
+            ]
+          },
+          {
+            "title": "Marketing / Casos",
+            "subtitle": "Go to market",
+            "text": "Campanhas com criativos premium e tom proprio.",
+            "bullets": [
+              "Conteudo hero",
+              "Ads iterativas",
+              "Testes A/B"
+            ]
+          },
+          {
+            "title": "Automacoes",
+            "subtitle": "Operacoes",
+            "text": "Fluxos para estoque, logistica e CRM.",
+            "bullets": [
+              "Inventario vivo",
+              "Alertas de estoque",
+              "Emails de recompra"
+            ]
+          }
+        ],
+        "it": [
+          {
+            "title": "Prodotto / App",
+            "subtitle": "Marketplace curato",
+            "text": "Redesign completo ecommerce con focus mobile.",
+            "bullets": [
+              "Sistema modulare",
+              "Ricerca veloce",
+              "Checkout rapido"
+            ]
+          },
+          {
+            "title": "Analisi dati",
+            "subtitle": "Comportamento",
+            "text": "Dashboard per capire il mix di prodotto.",
+            "bullets": [
+              "Top categorie",
+              "Margine per item",
+              "Performance giornaliera"
+            ]
+          },
+          {
+            "title": "Marketing / Casi",
+            "subtitle": "Go to market",
+            "text": "Campagne con creativita premium e tono proprio.",
+            "bullets": [
+              "Contenuto hero",
+              "Ads iterative",
+              "Test A/B"
+            ]
+          },
+          {
+            "title": "Automazioni",
+            "subtitle": "Operazioni",
+            "text": "Flussi per stock, logistica e CRM.",
+            "bullets": [
+              "Inventario vivo",
+              "Alert di stock",
+              "Email di riacquisto"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
