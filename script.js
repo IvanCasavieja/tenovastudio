@@ -4,6 +4,7 @@ const serviceCards = document.querySelectorAll(".service-card");
 const aboutSection = document.querySelector(".about");
 const header = document.querySelector(".header");
 const langButtons = document.querySelectorAll(".lang-btn");
+const langSelect = document.querySelector(".lang-select");
 const DEFAULT_LANG = "es";
 let translations = {};
 let currentLang = DEFAULT_LANG;
@@ -604,7 +605,7 @@ const attachLibraryEvents = () => {
 const loadClients = async () => {
   if (!libraryShelves) return;
   try {
-    const response = await fetch("clients.json", { cache: "no-store" });
+    const response = await fetch("clients.json");
     const data = await response.json();
     clientsData = data.clients || [];
     renderLibrary(currentLang);
@@ -634,6 +635,9 @@ const setActiveLang = (lang) => {
   langButtons.forEach((button) => {
     button.classList.toggle("is-active", button.dataset.lang === lang);
   });
+  if (langSelect) {
+    langSelect.value = lang;
+  }
 };
 
 const setLanguage = (lang) => {
@@ -664,7 +668,7 @@ const initLanguage = () => {
 const loadTranslations = async () => {
   if (!langButtons.length) return;
   try {
-    const response = await fetch("translations.json", { cache: "no-store" });
+    const response = await fetch("translations.json");
     translations = await response.json();
     initLanguage();
   } catch (error) {
@@ -677,6 +681,12 @@ langButtons.forEach((button) => {
     setLanguage(button.dataset.lang);
   });
 });
+
+if (langSelect) {
+  langSelect.addEventListener("change", (event) => {
+    setLanguage(event.target.value);
+  });
+}
 
 serviceLinks.forEach((link) => {
   link.addEventListener("click", (event) => {

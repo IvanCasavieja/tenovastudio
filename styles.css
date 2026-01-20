@@ -148,6 +148,31 @@ a {
   outline-offset: 2px;
 }
 
+.lang-select {
+  display: none;
+  appearance: none;
+  border: 1px solid currentColor;
+  background: rgba(248, 245, 240, 0.95);
+  color: var(--ink);
+  padding: 6px 28px 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.header.is-fixed .lang-select {
+  background: rgba(10, 10, 10, 0.08);
+  color: var(--ink);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -239,7 +264,7 @@ main > section {
   position: relative;
   min-height: 100vh;
   margin: 0;
-  background: url("inicio.png") center 20% / cover no-repeat;
+  background: url("inicio.jpg") center 20% / cover no-repeat;
   display: grid;
   place-items: center;
   text-align: center;
@@ -939,9 +964,10 @@ h3 {
   color: #4e4438;
   font-family: "Cormorant Garamond", serif;
   font-size: 10px;
-  line-height: 1.2;
+  line-height: 1.1;
   letter-spacing: 0.6px;
-  padding: 6px 8px;
+  height: 32px;
+  padding: 4px 6px;
   text-align: center;
   border-top: 1px solid rgba(10, 10, 10, 0.1);
   border-bottom-left-radius: 12px;
@@ -950,6 +976,10 @@ h3 {
   position: relative;
   z-index: 1;
   transition: opacity 0.2s var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .book.is-open .book-band {
@@ -1126,7 +1156,7 @@ h3 {
 }
 
 .contact-banner {
-  background: url("banner.png") center/cover no-repeat;
+  background: url("banner.jpg") center/cover no-repeat;
   padding: 0;
   display: flex;
   align-items: center;
@@ -1363,6 +1393,15 @@ h3 {
   }
 }
 
+@media (max-width: 1100px) {
+  .lang-btn {
+    display: none;
+  }
+
+  .lang-select {
+    display: inline-flex;
+  }
+}
 
 @media (max-width: 900px) {
   .header {
