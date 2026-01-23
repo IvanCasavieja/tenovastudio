@@ -1,11 +1,15 @@
 const serviceSelect = document.querySelector("#servicio-select");
 const serviceLinks = document.querySelectorAll("[data-service]");
 const serviceCards = document.querySelectorAll(".service-card");
+const serviceGrid = document.querySelector(".service-grid");
 const aboutSection = document.querySelector(".about");
 const header = document.querySelector(".header");
+const navWrap = document.querySelector(".nav-wrap");
+const menuToggle = document.querySelector(".menu-toggle");
 const langButtons = document.querySelectorAll(".lang-btn");
 const langSelect = document.querySelector(".lang-select");
 const DEFAULT_LANG = "es";
+const MENU_BREAKPOINT = 900;
 let translations = {};
 let currentLang = DEFAULT_LANG;
 let clientsData = [];
@@ -57,6 +61,27 @@ const updateHeaderState = () => {
   }
 };
 
+const setMenuState = (isOpen) => {
+  if (!navWrap || !menuToggle || !header) return;
+  navWrap.classList.toggle("is-open", isOpen);
+  header.classList.toggle("is-menu-open", isOpen);
+  menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu");
+  document.body.classList.toggle("menu-open", isOpen);
+};
+
+const toggleMenu = () => {
+  if (!navWrap) return;
+  setMenuState(!navWrap.classList.contains("is-open"));
+};
+
+const handleResize = () => {
+  updateHeaderState();
+  if (window.innerWidth > MENU_BREAKPOINT) {
+    setMenuState(false);
+  }
+};
+
 const getTranslation = (key) => {
   if (translations[currentLang] && translations[currentLang][key]) {
     return translations[currentLang][key];
@@ -65,6 +90,15 @@ const getTranslation = (key) => {
     return translations[DEFAULT_LANG][key];
   }
   return "";
+};
+
+const getClientName = (client, lang) => {
+  if (!client) return "Cliente";
+  const name =
+    (client.name && client.name[lang]) ||
+    (client.name && client.name[DEFAULT_LANG]) ||
+    client.name;
+  return name || "Cliente";
 };
 
 const buildPage = (page) => {
@@ -115,7 +149,7 @@ const renderPageContent = (container, page) => {
 };
 
 const createBook = (client, lang) => {
-  const width = 72;
+  const width = 64;
 
   const book = document.createElement("div");
   book.className = "book";
@@ -134,11 +168,7 @@ const createBook = (client, lang) => {
 
   const band = document.createElement("div");
   band.className = "book-band";
-  const name =
-    (client.name && client.name[lang]) ||
-    (client.name && client.name[DEFAULT_LANG]) ||
-    client.name ||
-    "Cliente";
+  const name = getClientName(client, lang);
   band.textContent = name;
 
   cover.appendChild(band);
@@ -150,6 +180,10 @@ const createBook = (client, lang) => {
     (client.pages && client.pages[DEFAULT_LANG]) ||
     [];
   bookPages.set(book, pageData);
+
+  const coverInner = document.createElement("div");
+  coverInner.className = "book-cover-inner book-page";
+  cover.appendChild(coverInner);
 
   book.appendChild(stack);
 
@@ -169,7 +203,7 @@ const renderSpread = (book, spreadIndex) => {
 };
 
 const createEmptySlot = () => {
-  const width = 72;
+  const width = 64;
   const book = document.createElement("div");
   book.className = "book book-empty";
   book.dataset.empty = "true";
@@ -186,7 +220,7 @@ const createEmptySlot = () => {
 
   const band = document.createElement("div");
   band.className = "book-band";
-  band.textContent = "Vacio";
+  band.textContent = "Vacío";
 
   cover.appendChild(band);
   book.appendChild(back);
@@ -212,7 +246,7 @@ const renderLibrary = (lang) => {
   }
   libraryShelves.innerHTML = "";
 
-  const slotsPerShelf = 5;
+  const slotsPerShelf = 6;
   const totalSlots = Math.max(
     slotsPerShelf * 2,
     Math.ceil(clientsData.length / slotsPerShelf) * slotsPerShelf
@@ -255,9 +289,35 @@ const setupServiceCardAnimations = () => {
     return;
   }
 
+  const getColumns = () => {
+    if (!serviceGrid) return 2;
+    const template = getComputedStyle(serviceGrid).gridTemplateColumns;
+    const count = template ? template.split(" ").filter(Boolean).length : 0;
+    return count || 2;
+  };
+
+  const columns = getColumns();
+  const midpoint = Math.max(1, Math.floor(columns / 2));
+  const rowDelays = new Map();
+
+  const readDelay = (card) => {
+    const raw = getComputedStyle(card).getPropertyValue("--delay");
+    const parsed = parseFloat(raw);
+    return Number.isFinite(parsed) ? parsed / 1000 : 0;
+  };
+
   serviceCards.forEach((card, index) => {
-    const direction = index % 2 === 0 ? "left" : "right";
+    const rowIndex = Math.floor(index / columns);
+    const colIndex = index % columns;
+    const direction = colIndex < midpoint ? "left" : "right";
+    const delay = readDelay(card);
+    const current = rowDelays.get(rowIndex);
+
     card.dataset.reveal = direction;
+    card.dataset.row = `${rowIndex}`;
+    if (current === undefined || delay < current) {
+      rowDelays.set(rowIndex, delay);
+    }
   });
 
   const appearDelay = 0;
@@ -267,9 +327,8 @@ const setupServiceCardAnimations = () => {
   const getOffset = (card) => (card.dataset.reveal === "left" ? -200 : 200);
 
   const getDelay = (card) => {
-    const raw = getComputedStyle(card).getPropertyValue("--delay");
-    const parsed = parseFloat(raw);
-    return Number.isFinite(parsed) ? parsed / 1000 : 0;
+    const rowIndex = Number(card.dataset.row || 0);
+    return rowDelays.get(rowIndex) ?? 0;
   };
 
   const setHidden = (card) => {
@@ -417,6 +476,8 @@ const getOpenOffsets = (book, options = {}) => {
     return { libraryShift: 0, bookShift: 0, bookShiftY: 0, scaleX: 1, scaleY: 1 };
   }
   const { lockLibrary = false } = options;
+  const snap = (value) => Math.round(value);
+  const snapScale = (value) => Math.round(value * 1000) / 1000;
   const container = library.closest(".clients-inner") || library.parentElement;
   if (!container) {
     return { libraryShift: 0, bookShift: 0, bookShiftY: 0, scaleX: 1, scaleY: 1 };
@@ -446,7 +507,13 @@ const getOpenOffsets = (book, options = {}) => {
   const currentCenterY = bookRect.top + bookRect.height / 2;
   const bookShiftY = targetCenterY - currentCenterY - 6;
 
-  return { libraryShift, bookShift, bookShiftY, scaleX, scaleY };
+  return {
+    libraryShift: snap(libraryShift),
+    bookShift: snap(bookShift),
+    bookShiftY: snap(bookShiftY),
+    scaleX: snapScale(scaleX),
+    scaleY: snapScale(scaleY),
+  };
 };
 
 const openBook = (book) => {
@@ -494,7 +561,7 @@ const openBook = (book) => {
       });
   } else {
     animate(book, {
-      transform: `translate(${bookShift}px, ${bookShiftY}px) scale(${scaleX}, ${scaleY})`,
+      transform: `translate3d(${bookShift}px, ${bookShiftY}px, 0) scale3d(${scaleX}, ${scaleY}, 1)`,
     });
     animate(cover, { transform: "rotateY(-165deg)" });
     isBookAnimating = false;
@@ -605,7 +672,7 @@ const attachLibraryEvents = () => {
 const loadClients = async () => {
   if (!libraryShelves) return;
   try {
-    const response = await fetch("clients.json");
+    const response = await fetch("data/clients.json");
     const data = await response.json();
     clientsData = data.clients || [];
     renderLibrary(currentLang);
@@ -668,7 +735,7 @@ const initLanguage = () => {
 const loadTranslations = async () => {
   if (!langButtons.length) return;
   try {
-    const response = await fetch("translations.json");
+    const response = await fetch("data/translations.json");
     translations = await response.json();
     initLanguage();
   } catch (error) {
@@ -687,6 +754,22 @@ if (langSelect) {
     setLanguage(event.target.value);
   });
 }
+
+if (menuToggle && navWrap) {
+  menuToggle.addEventListener("click", toggleMenu);
+  navWrap.addEventListener("click", (event) => {
+    const link = event.target.closest(".nav a");
+    if (link) {
+      setMenuState(false);
+    }
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setMenuState(false);
+  }
+});
 
 serviceLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
@@ -711,4 +794,4 @@ setupServiceCardAnimations();
 setupAboutReveal();
 
 window.addEventListener("scroll", updateHeaderState, { passive: true });
-window.addEventListener("resize", updateHeaderState);
+window.addEventListener("resize", handleResize);

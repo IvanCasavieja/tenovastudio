@@ -10,34 +10,47 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="favicon-64.png" type="image/png" sizes="64x64" />
-    <link rel="shortcut icon" href="favicon-64.png" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/icons/favicon-64.png" type="image/png" sizes="64x64" />
+    <link rel="shortcut icon" href="assets/icons/favicon-64.png" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <div class="page">
       <header class="header">
         <div class="logo">Tenova Studio</div>
-        <nav class="nav">
-          <a href="#inicio" data-i18n="nav.home">Inicio</a>
-          <a href="#acerca" data-i18n="nav.about">Acerca de nosotros</a>
-          <a href="#servicios" data-i18n="nav.services">Servicios</a>
-          <a href="#clientes" data-i18n="nav.clients">Clientes</a>
-          <a href="#contacto" data-i18n="nav.contact">Contacto</a>
-        </nav>
-        <div class="lang-switch" aria-label="Idioma">
-          <button type="button" class="lang-btn is-active" data-lang="es">ES</button>
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
-          <button type="button" class="lang-btn" data-lang="pt">PT</button>
-          <button type="button" class="lang-btn" data-lang="it">IT</button>
-          <select class="lang-select" aria-label="Seleccionar idioma">
-            <option value="es">ES</option>
-            <option value="en">EN</option>
-            <option value="pt">PT</option>
-            <option value="it">IT</option>
-          </select>
+        <div class="nav-wrap">
+          <nav class="nav" id="primary-navigation">
+            <a href="#inicio" data-i18n="nav.home">Inicio</a>
+            <a href="#acerca" data-i18n="nav.about">Acerca de nosotros</a>
+            <a href="#servicios" data-i18n="nav.services">Servicios</a>
+            <a href="#clientes" data-i18n="nav.clients">Clientes</a>
+            <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+          </nav>
+          <div class="lang-switch" aria-label="Idioma">
+            <button type="button" class="lang-btn is-active" data-lang="es">ES</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="pt">PT</button>
+            <button type="button" class="lang-btn" data-lang="it">IT</button>
+            <select class="lang-select" aria-label="Seleccionar idioma">
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+              <option value="pt">PT</option>
+              <option value="it">IT</option>
+            </select>
+          </div>
         </div>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+        >
+          <span class="menu-toggle-bar"></span>
+          <span class="menu-toggle-bar"></span>
+          <span class="menu-toggle-bar"></span>
+        </button>
       </header>
 
       <main>
@@ -52,28 +65,28 @@
             <div>
               <h2 data-i18n="about.title">Acerca de nosotros</h2>
               <p data-i18n="about.p1">
-                Somos un estudio boutique que une analisis profundo, creatividad
-                y tecnologia. Construimos identidades y plataformas digitales con
-                una mirada editorial: cada pieza comunica con intencion.
+                Somos un estudio boutique que une análisis profundo, creatividad
+                y tecnología. Construimos identidades y plataformas digitales con
+                una mirada editorial: cada pieza comunica con intención.
               </p>
               <p data-i18n="about.p2">
-                Acompanamos a marcas que buscan diferenciarse con una presencia
+                Acompañamos a marcas que buscan diferenciarse con una presencia
                 digital elegante y consistente. Nuestro trabajo combina estrategia,
-                diseno y desarrollo para crear experiencias que se sienten actuales
+                diseño y desarrollo para crear experiencias que se sienten actuales
                 y sofisticadas.
               </p>
               <p data-i18n="about.p3">
                 Trabajamos de forma cercana, con equipos compactos y procesos
-                agiles, para que cada proyecto mantenga consistencia, un lenguaje
+                ágiles, para que cada proyecto mantenga consistencia, un lenguaje
                 visual cuidado y resultados medibles.
               </p>
             </div>
             <div class="about-card">
               <h3 data-i18n="about.cardTitle">Lo que nos define</h3>
               <ul>
-                <li data-i18n="about.cardItem1">Direccion creativa con foco en negocio.</li>
+                <li data-i18n="about.cardItem1">Dirección creativa con foco en negocio.</li>
                 <li data-i18n="about.cardItem2">Procesos claros, entregas en etapas.</li>
-                <li data-i18n="about.cardItem3">Diseno digital con obsesion por el detalle.</li>
+                <li data-i18n="about.cardItem3">Diseño digital con obsesión por el detalle.</li>
               </ul>
               <a class="text-link" href="#contacto" data-i18n="about.cardCta">Conversemos</a>
             </div>
@@ -95,7 +108,7 @@
                 <span class="signal-kicker" data-i18n="about.signal1.kicker">Marketing</span>
                 <span class="signal-value" data-i18n="about.signal1.value">+42%</span>
                 <p data-i18n="about.signal1.text">
-                  Campanas premium con resultados sostenidos.
+                  Campañas premium con resultados sostenidos.
                 </p>
               </div>
             </div>
@@ -112,7 +125,7 @@
                 <span class="signal-kicker" data-i18n="about.signal2.kicker">Automatizaciones</span>
                 <span class="signal-value" data-i18n="about.signal2.value">-35%</span>
                 <p data-i18n="about.signal2.text">
-                  Reduccion de tiempos operativos con flujos inteligentes.
+                  Reducción de tiempos operativos con flujos inteligentes.
                 </p>
               </div>
             </div>
@@ -131,7 +144,7 @@
                 <span class="signal-kicker" data-i18n="about.signal3.kicker">Desarrollo</span>
                 <span class="signal-value" data-i18n="about.signal3.value">1.6s</span>
                 <p data-i18n="about.signal3.text">
-                  Experiencias rapidas y solidas en cualquier dispositivo.
+                  Experiencias rápidas y sólidas en cualquier dispositivo.
                 </p>
               </div>
             </div>
@@ -149,11 +162,11 @@
             </div>
             <div class="service-grid">
             <article class="service-card" style="--delay: 0ms">
-              <img src="analisis.jpg" alt="Analisis" loading="lazy" decoding="async" />
+              <img src="assets/images/analisis.jpg" alt="Análisis" loading="lazy" decoding="async" />
               <div class="card-body">
-                <h3 data-i18n="services.analysis.title">Analisis</h3>
+                <h3 data-i18n="services.analysis.title">Análisis</h3>
                 <p data-i18n="services.analysis.desc">
-                  Diagnosticos de marca, auditorias digitales y data storytelling
+                  Diagnósticos de marca, auditorías digitales y data storytelling
                   para tomar decisiones con claridad.
                 </p>
                 <a
@@ -168,12 +181,12 @@
             </article>
 
             <article class="service-card" style="--delay: 120ms">
-              <img src="marketing.jpg" alt="Marketing" loading="lazy" decoding="async" />
+              <img src="assets/images/marketing.jpg" alt="Marketing" loading="lazy" decoding="async" />
               <div class="card-body">
                 <h3 data-i18n="services.marketing.title">Marketing</h3>
                 <p data-i18n="services.marketing.desc">
-                  Narrativas, contenido premium y campanas de performance con
-                  estetica coherente y lenguaje propio.
+                  Narrativas, contenido premium y campañas de performance con
+                  estética coherente y lenguaje propio.
                 </p>
                 <a
                   class="btn btn-outline"
@@ -187,7 +200,7 @@
             </article>
 
             <article class="service-card" style="--delay: 240ms">
-              <img src="desarrollo.jpg" alt="Desarrollo" loading="lazy" decoding="async" />
+              <img src="assets/images/desarrollo.jpg" alt="Desarrollo" loading="lazy" decoding="async" />
               <div class="card-body">
                 <h3 data-i18n="services.desarrollo.title">Desarrollo</h3>
                 <p data-i18n="services.desarrollo.desc">
@@ -206,9 +219,9 @@
             </article>
 
             <article class="service-card" style="--delay: 360ms">
-              <img src="automatizacion.jpg" alt="Automatizacion" loading="lazy" decoding="async" />
+              <img src="assets/images/automatizacion.jpg" alt="Automatización" loading="lazy" decoding="async" />
               <div class="card-body">
-                <h3 data-i18n="services.automatizacion.title">Automatizacion</h3>
+                <h3 data-i18n="services.automatizacion.title">Automatización</h3>
                 <p data-i18n="services.automatizacion.desc">
                   Flujos inteligentes, integraciones y herramientas internas para
                   escalar procesos sin perder estilo.
@@ -232,14 +245,14 @@
             <div class="section-header">
               <h2 data-i18n="clients.title">Clientes y resultados</h2>
               <p data-i18n="clients.subtitle">
-                Marcas que confian en Tenova Studio y el impacto que generamos.
+                Marcas que confían en Tenova Studio y el impacto que generamos.
               </p>
             </div>
             <div class="library" id="library">
+              <div class="library-title" data-i18n="clients.libraryTitle">
+                Biblioteca de clientes
+              </div>
               <div class="library-shelves" id="library-shelves"></div>
-              <button class="library-cta" type="button" data-i18n="clients.cta">
-                Ver mas trabajos
-              </button>
             </div>
           </div>
         </section>
@@ -302,7 +315,7 @@
                       Seleccionar servicio
                     </option>
                     <option value="Analisis" data-i18n="services.analysis.title">
-                      Analisis
+                      Análisis
                     </option>
                     <option value="Marketing" data-i18n="services.marketing.title">
                       Marketing
@@ -314,7 +327,7 @@
                       value="Automatizacion"
                       data-i18n="services.automatizacion.title"
                     >
-                      Automatizacion
+                      Automatización
                     </option>
                   </select>
                 </label>
@@ -334,7 +347,7 @@
                   Enviar
                 </button>
                 <span class="form-note" data-i18n="form.note">
-                  Respondemos en 48 horas habiles.
+                  Respondemos en 48 horas hábiles.
                 </span>
               </div>
             </form>
@@ -345,7 +358,7 @@
       <footer class="footer">
         <div class="footer-brand">
           <h3>Tenova Studio</h3>
-          <p data-i18n="footer.tagline">Estudio creativo y tecnologia aplicada.</p>
+          <p data-i18n="footer.tagline">Estudio creativo y tecnología aplicada.</p>
           <span data-i18n="footer.copyright">
             (c) 2026 Tenova Studio. Todos los derechos reservados.
           </span>
@@ -385,6 +398,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="script.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

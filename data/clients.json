@@ -6,7 +6,7 @@
       "name": {
         "es": "Nuestro Alimento Diario",
         "en": "Nuestro Alimento Diario",
-        "pt": "Nosso Alimento Diario",
+        "pt": "Nosso Alimento Diário",
         "it": "Nostro Alimento Diario"
       },
       "pages": {
@@ -14,7 +14,7 @@
           {
             "title": "Producto / App",
             "subtitle": "Experiencia editorial",
-            "text": "Plataforma de suscripcion con foco en lectura y compra recurrente.",
+            "text": "Plataforma de suscripción con foco en lectura y compra recurrente.",
             "bullets": [
               "UX editorial",
               "Checkout optimizado",
@@ -22,9 +22,9 @@
             ]
           },
           {
-            "title": "Analisis de datos",
-            "subtitle": "Mapa de decision",
-            "text": "Analisis de comportamiento y cohortes para mejorar conversion.",
+            "title": "Análisis de datos",
+            "subtitle": "Mapa de decisión",
+            "text": "Análisis de comportamiento y cohortes para mejorar conversión.",
             "bullets": [
               "Segmentos clave",
               "Embudo completo",
@@ -33,7 +33,7 @@
           },
           {
             "title": "Marketing / Casos",
-            "subtitle": "Campanas always on",
+            "subtitle": "Campañas always on",
             "text": "Estrategia de contenidos y performance para crecer en Latam.",
             "bullets": [
               "Creatividad premium",
@@ -97,28 +97,28 @@
         "pt": [
           {
             "title": "Produto / App",
-            "subtitle": "Experiencia editorial",
+            "subtitle": "Experiência editorial",
             "text": "Plataforma de assinatura focada em leitura e compra recorrente.",
             "bullets": [
               "UX editorial",
               "Checkout otimizado",
-              "Sistema de recomendacao"
+              "Sistema de recomendação"
             ]
           },
           {
-            "title": "Analise de dados",
-            "subtitle": "Mapa de decisao",
-            "text": "Analise de comportamento e coortes para melhorar conversao.",
+            "title": "Análise de dados",
+            "subtitle": "Mapa de decisão",
+            "text": "Análise de comportamento e coortes para melhorar conversão.",
             "bullets": [
               "Segmentos chave",
               "Funil completo",
-              "Insights acionaveis"
+              "Insights acionáveis"
             ]
           },
           {
             "title": "Marketing / Casos",
             "subtitle": "Campanhas always on",
-            "text": "Estrategia de conteudo e performance para crescer na Latam.",
+            "text": "Estratégia de conteúdo e performance para crescer na Latam.",
             "bullets": [
               "Criatividade premium",
               "Meta + Google",
@@ -126,12 +126,12 @@
             ]
           },
           {
-            "title": "Automacoes",
-            "subtitle": "Operacoes finas",
+            "title": "Automações",
+            "subtitle": "Operações finas",
             "text": "Fluxos integrados para CRM, email e suporte.",
             "bullets": [
               "Lead scoring",
-              "Sequencias de email",
+              "Sequências de email",
               "Alertas internos"
             ]
           }
@@ -162,7 +162,7 @@
             "subtitle": "Campagne always on",
             "text": "Strategia di contenuto e performance per crescere in Latam.",
             "bullets": [
-              "Creativita premium",
+              "Creatività premium",
               "Meta + Google",
               "KPI settimanali"
             ]
@@ -194,27 +194,27 @@
           {
             "title": "Producto / App",
             "subtitle": "Marketplace curado",
-            "text": "Redisenio total del ecommerce con foco mobile.",
+            "text": "Rediseño total del ecommerce con foco mobile.",
             "bullets": [
               "Sistema modular",
-              "Busqueda rapida",
+              "Búsqueda rápida",
               "Checkout express"
             ]
           },
           {
-            "title": "Analisis de datos",
+            "title": "Análisis de datos",
             "subtitle": "Comportamiento",
             "text": "Dashboards para entender el mix de productos.",
             "bullets": [
-              "Top categorias",
-              "Margen por item",
+              "Top categorías",
+              "Margen por ítem",
               "Rendimiento diario"
             ]
           },
           {
             "title": "Marketing / Casos",
             "subtitle": "Go to market",
-            "text": "Campanas con creatividades premium y tono propio.",
+            "text": "Campañas con creatividades premium y tono propio.",
             "bullets": [
               "Contenido hero",
               "Ads iterativas",
@@ -224,7 +224,7 @@
           {
             "title": "Automatizaciones",
             "subtitle": "Operaciones",
-            "text": "Flujos para stock, logistica y CRM.",
+            "text": "Flujos para stock, logística y CRM.",
             "bullets": [
               "Inventario vivo",
               "Alertas de stock",
@@ -281,36 +281,36 @@
             "text": "Redesign completo do ecommerce com foco mobile.",
             "bullets": [
               "Sistema modular",
-              "Busca rapida",
+              "Busca rápida",
               "Checkout expresso"
             ]
           },
           {
-            "title": "Analise de dados",
+            "title": "Análise de dados",
             "subtitle": "Comportamento",
             "text": "Dashboards para entender o mix de produtos.",
             "bullets": [
               "Top categorias",
               "Margem por item",
-              "Performance diaria"
+              "Performance diária"
             ]
           },
           {
             "title": "Marketing / Casos",
             "subtitle": "Go to market",
-            "text": "Campanhas com criativos premium e tom proprio.",
+            "text": "Campanhas com criativos premium e tom próprio.",
             "bullets": [
-              "Conteudo hero",
+              "Conteúdo hero",
               "Ads iterativas",
               "Testes A/B"
             ]
           },
           {
-            "title": "Automacoes",
-            "subtitle": "Operacoes",
-            "text": "Fluxos para estoque, logistica e CRM.",
+            "title": "Automações",
+            "subtitle": "Operações",
+            "text": "Fluxos para estoque, logística e CRM.",
             "bullets": [
-              "Inventario vivo",
+              "Inventário vivo",
               "Alertas de estoque",
               "Emails de recompra"
             ]
@@ -340,7 +340,7 @@
           {
             "title": "Marketing / Casi",
             "subtitle": "Go to market",
-            "text": "Campagne con creativita premium e tono proprio.",
+            "text": "Campagne con creatività premium e tono proprio.",
             "bullets": [
               "Contenuto hero",
               "Ads iterative",
