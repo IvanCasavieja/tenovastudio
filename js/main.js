@@ -21,6 +21,7 @@ const library = document.querySelector("#library");
 const libraryShelves = document.querySelector("#library-shelves");
 const bookPages = new WeakMap();
 const bookClients = new WeakMap();
+const bookPlaceholders = new WeakMap();
 const serviceIcons = {
   analisis:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="20"></line><rect x="5" y="11" width="3" height="7" rx="1"></rect><rect x="10.5" y="8" width="3" height="10" rx="1"></rect><rect x="16" y="5" width="3" height="13" rx="1"></rect></svg>',
@@ -838,50 +839,128 @@ const setupAboutReveal = () => {
 
 const getOpenOffsets = (book, options = {}) => {
   if (!library || !book) {
-    return { libraryShift: 0, bookShift: 0, bookShiftY: 0, scaleX: 1, scaleY: 1 };
+    return {
+      libraryShift: 0,
+      bookShift: 0,
+      bookShiftY: 0,
+      targetWidth: 0,
+      targetHeight: 0,
+    };
   }
-  const { lockLibrary = false } = options;
+  const { lockLibrary = false, targetWidth: requestedWidth } = options;
   const snap = (value) => Math.round(value);
-  const snapScale = (value) => Math.round(value * 1000) / 1000;
   const container = library.closest(".clients-inner") || library.parentElement;
   if (!container) {
-    return { libraryShift: 0, bookShift: 0, bookShiftY: 0, scaleX: 1, scaleY: 1 };
+    return {
+      libraryShift: 0,
+      bookShift: 0,
+      bookShiftY: 0,
+      targetWidth: 0,
+      targetHeight: 0,
+    };
   }
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
-  const targetWidth = Math.min(viewportWidth * 0.82, 440);
-  const targetHeight = Math.min(viewportHeight * 0.92, 780);
+  const bookRect = book.getBoundingClientRect();
+  const aspect = bookRect.width ? bookRect.height / bookRect.width : 1.6;
+  const targetWidth = requestedWidth || 370;
+  const margin = 8;
+  const targetHeight = 670;
   const containerRect = container.getBoundingClientRect();
   const libraryRect = library.getBoundingClientRect();
-  const bookRect = book.getBoundingClientRect();
-  const margin = 8;
+  const headerHeight = header ? header.getBoundingClientRect().height : 0;
 
-  const libraryShift = lockLibrary
-    ? 0
-    : containerRect.left - libraryRect.left - 80;
-  const maxRight = Math.min(containerRect.right, viewportWidth - margin);
-  const rawScaleX = targetWidth / bookRect.width;
-  const rawScaleY = targetHeight / bookRect.height;
-  const uniformScale = Math.min(rawScaleX, rawScaleY);
-  const scaleX = uniformScale;
-  const scaleY = uniformScale;
-  const openWidth = bookRect.width * scaleX;
-  const targetBookCenter = maxRight - openWidth / 2;
-  const currentBookCenter = bookRect.left + bookRect.width / 2;
-  const baseShift = targetBookCenter - (currentBookCenter + libraryShift);
-  const extraRight = Math.min(viewportWidth * 0.12, 140);
-  const bookShift = baseShift + extraRight;
-  const targetCenterY = libraryRect.top + libraryRect.height / 2;
-  const currentCenterY = bookRect.top + bookRect.height / 2;
-  const bookShiftY = targetCenterY - currentCenterY - 6;
+  const minLeft = margin;
+  const maxLeft = Math.max(margin, viewportWidth - margin - targetWidth);
+  const gap = 24;
+  let libraryShift = 0;
+  if (!lockLibrary) {
+    libraryShift = -350;
+    const availableRight =
+      viewportWidth - margin - (libraryRect.right + libraryShift);
+    const needed = targetWidth + gap - availableRight;
+    if (needed > 0) {
+      libraryShift = -(350 + needed);
+    }
+  }
+
+  const shiftedLibraryRight = libraryRect.right + libraryShift;
+  const shiftedLibraryLeft = libraryRect.left + libraryShift;
+  const rightCandidate = shiftedLibraryRight + gap;
+  const leftCandidate = shiftedLibraryLeft - targetWidth - gap;
+  let targetLeft = rightCandidate;
+  if (targetLeft > maxLeft) {
+    targetLeft = Math.max(minLeft, leftCandidate);
+  }
+  targetLeft = Math.min(Math.max(targetLeft, minLeft), maxLeft);
+
+  const minTop = margin + headerHeight;
+  const maxTop = Math.max(minTop, viewportHeight - margin - targetHeight);
+  const centeredTop = libraryRect.top + (libraryRect.height - targetHeight) / 2;
+  const targetTop = Math.min(Math.max(centeredTop, minTop), maxTop);
+
+  const bookShift = targetLeft - bookRect.left;
+  const bookShiftY = targetTop - bookRect.top;
 
   return {
     libraryShift: snap(libraryShift),
     bookShift: snap(bookShift),
     bookShiftY: snap(bookShiftY),
-    scaleX: snapScale(scaleX),
-    scaleY: snapScale(scaleY),
+    targetWidth: snap(targetWidth),
+    targetHeight: snap(targetHeight),
   };
+};
+
+const detachBook = (book) => {
+  if (!book || book.dataset.detached === "true") return null;
+  const rect = book.getBoundingClientRect();
+  const placeholder = document.createElement("div");
+  placeholder.className = "book-placeholder";
+  placeholder.style.width = `${rect.width}px`;
+  placeholder.style.height = `${rect.height}px`;
+
+  const parent = book.parentElement;
+  const nextSibling = book.nextSibling;
+  if (parent) {
+    parent.insertBefore(placeholder, book);
+  }
+
+  document.body.appendChild(book);
+  book.style.position = "absolute";
+  book.style.left = `${rect.left + window.scrollX}px`;
+  book.style.top = `${rect.top + window.scrollY}px`;
+  book.style.width = `${rect.width}px`;
+  book.style.height = `${rect.height}px`;
+  book.style.margin = "0";
+  book.style.zIndex = "30";
+  book.dataset.detached = "true";
+
+  const payload = { placeholder, parent, nextSibling };
+  bookPlaceholders.set(book, payload);
+  return payload;
+};
+
+const reattachBook = (book) => {
+  const payload = bookPlaceholders.get(book);
+  if (!payload) return;
+  const { placeholder, parent, nextSibling } = payload;
+  if (parent) {
+    if (nextSibling && nextSibling.parentElement === parent) {
+      parent.insertBefore(book, nextSibling);
+    } else {
+      parent.insertBefore(book, placeholder || null);
+    }
+  }
+  if (placeholder && placeholder.parentElement) {
+    placeholder.parentElement.removeChild(placeholder);
+  }
+  bookPlaceholders.delete(book);
+  delete book.dataset.detached;
+  book.style.position = "";
+  book.style.left = "";
+  book.style.top = "";
+  book.style.margin = "";
+  book.style.zIndex = "";
 };
 
 const openBook = (book) => {
@@ -897,11 +976,15 @@ const openBook = (book) => {
   isBookAnimating = true;
   activeBook = book;
   const cover = book.querySelector(".book-cover");
-  const openWidth = 150;
-  book.style.width = `${openWidth}px`;
-  const { libraryShift, bookShift, bookShiftY, scaleX, scaleY } =
-    getOpenOffsets(book, { lockLibrary: hasOpenBook });
-  const contentScale = scaleX ? 1 / scaleX : 1;
+  const baseRect = book.getBoundingClientRect();
+  book.dataset.baseWidthActual = `${Math.round(baseRect.width)}`;
+  book.dataset.baseHeightActual = `${Math.round(baseRect.height)}`;
+  detachBook(book);
+  const { libraryShift, bookShift, bookShiftY, targetWidth, targetHeight } =
+    getOpenOffsets(book, { lockLibrary: hasOpenBook, targetWidth: 370 });
+  const coverWidth = Math.min(300, targetWidth);
+  book.dataset.openCoverWidth = `${coverWidth}`;
+  const contentScale = 1;
   book.dataset.contentScale = `${contentScale}`;
   applyServicesScale(book, contentScale);
 
@@ -916,26 +999,38 @@ const openBook = (book) => {
     if (library && !hasOpenBook) {
       tl.to(library, { x: libraryShift, duration: 0.9, ease: "power3.out" }, 0);
     }
-    tl.to(
-      book,
-      {
-        x: bookShift,
-        y: bookShiftY,
-        scaleX,
-        scaleY,
-        duration: 0.9,
-        ease: "power3.out",
-      },
-      0
-    )
-      .to(cover, { rotateY: -165, duration: 1.1, ease: "power3.out" }, 0.1)
-      .add(() => {
-        isBookAnimating = false;
-      });
+      tl.to(
+        book,
+        {
+          x: bookShift,
+          y: bookShiftY,
+          width: targetWidth,
+          height: targetHeight,
+          duration: 0.9,
+          ease: "power3.out",
+        },
+        0
+      )
+        .to(
+          cover,
+          {
+            rotateY: -165,
+            width: coverWidth,
+            duration: 1.1,
+            ease: "power3.out",
+          },
+          0.1
+        )
+        .add(() => {
+          isBookAnimating = false;
+        });
   } else {
     animate(book, {
-      transform: `translate3d(${bookShift}px, ${bookShiftY}px, 0) scale3d(${scaleX}, ${scaleY}, 1)`,
+      transform: `translate3d(${bookShift}px, ${bookShiftY}px, 0)`,
+      width: `${targetWidth}px`,
+      height: `${targetHeight}px`,
     });
+    cover.style.width = `${coverWidth}px`;
     animate(cover, { transform: "rotateY(-165deg)" });
     isBookAnimating = false;
   }
@@ -948,19 +1043,26 @@ const closeBook = (options = {}) => {
   const cover = book.querySelector(".book-cover");
   activeBook = null;
   book.classList.add("is-closing");
-  const baseWidth = Number(book.dataset.baseWidth || 64);
+  const baseWidthVar = Number(book.dataset.baseWidth || 64);
+  const baseWidth = Number(book.dataset.baseWidthActual || baseWidthVar);
+  const baseHeight = Number(
+    book.dataset.baseHeightActual || book.getBoundingClientRect().height
+  );
 
   const tl = window.gsap ? window.gsap.timeline() : null;
   if (tl) {
-    tl.to(cover, { rotateY: 0, duration: 0.9, ease: "power3.out" }, 0)
+    tl.to(
+      cover,
+      { rotateY: 0, width: baseWidth, duration: 0.9, ease: "power3.out" },
+      0
+    )
       .to(
         book,
         {
           x: 0,
           y: 0,
-          scaleX: 1,
-          scaleY: 1,
           width: baseWidth,
+          height: baseHeight,
           duration: 0.9,
           ease: "power3.out",
         },
@@ -975,13 +1077,16 @@ const closeBook = (options = {}) => {
         library.classList.remove("is-shifted");
       }
       book.style.width = "";
-      book.style.setProperty("--book-width", `${baseWidth}px`);
+      book.style.height = "";
+      book.style.setProperty("--book-width", `${baseWidthVar}px`);
       window.gsap.set(book, { clearProps: "transform" });
       if (cover) {
         window.gsap.set(cover, { clearProps: "transform" });
       }
+      delete book.dataset.openCoverWidth;
       delete book.dataset.contentScale;
       applyServicesScale(book, 1);
+      reattachBook(book);
     });
   } else {
     book.classList.remove("is-selected", "is-open", "is-closing");
@@ -991,11 +1096,14 @@ const closeBook = (options = {}) => {
       library.style.removeProperty("--library-shift");
     }
     book.style.width = `${baseWidth}px`;
-    book.style.setProperty("--book-width", `${baseWidth}px`);
+    book.style.height = `${baseHeight}px`;
+    book.style.setProperty("--book-width", `${baseWidthVar}px`);
     book.style.transform = "";
     cover.style.transform = "";
+    cover.style.width = "";
     delete book.dataset.contentScale;
     applyServicesScale(book, 1);
+    reattachBook(book);
   }
 };
 
