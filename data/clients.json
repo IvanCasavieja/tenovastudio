@@ -12,43 +12,43 @@
       "pages": {
         "es": [
           {
-            "title": "Producto / App",
-            "subtitle": "Experiencia editorial",
-            "text": "Plataforma de suscripción con foco en lectura y compra recurrente.",
+            "title": "Desarrollo",
+            "subtitle": "App devocional diaria",
+            "text": "Aplicación cristiana con versos y oraciones personalizadas para leer, reproducir, compartir y guardar en favoritos.",
             "bullets": [
-              "UX editorial",
-              "Checkout optimizado",
-              "Sistema de recomendaciones"
+              "Reproductor y compartir",
+              "Favoritos y archivo diario",
+              "Perfil con avatar, idioma y tamaño de letra"
             ]
           },
           {
             "title": "Análisis de datos",
-            "subtitle": "Mapa de decisión",
-            "text": "Análisis de comportamiento y cohortes para mejorar conversión.",
+            "subtitle": "Archivo vivo en Firebase",
+            "text": "Repositorio histórico de contenidos y opiniones, con datos organizados para consulta y gestión.",
             "bullets": [
-              "Segmentos clave",
-              "Embudo completo",
-              "Insights accionables"
+              "Versos y oraciones en base",
+              "Historial de comunidad",
+              "Registro de opiniones"
             ]
           },
           {
-            "title": "Marketing / Casos",
-            "subtitle": "Campañas always on",
-            "text": "Estrategia de contenidos y performance para crecer en Latam.",
+            "title": "Marketing",
+            "subtitle": "Comunidad y difusión",
+            "text": "Espacio para publicar frases y testimonios, con contenido pensado para compartir y crecer orgánicamente.",
             "bullets": [
-              "Creatividad premium",
-              "Meta + Google",
-              "KPI semanales"
+              "UGC moderado",
+              "Contenido shareable",
+              "Engagement diario"
             ]
           },
           {
-            "title": "Automatizaciones",
-            "subtitle": "Operaciones finas",
-            "text": "Flujos integrados para CRM, email y soporte.",
+            "title": "Automatización",
+            "subtitle": "Panel de administración",
+            "text": "Backoffice para cargar alimentos diarios, aprobar publicaciones y gestionar misiones solidarias.",
             "bullets": [
-              "Lead scoring",
-              "Secuencias email",
-              "Alertas internas"
+              "Moderación de comunidad",
+              "Gestión de misiones",
+              "Opiniones y contenidos"
             ]
           }
         ],
