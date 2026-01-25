@@ -865,7 +865,7 @@ const getOpenOffsets = (book, options = {}) => {
   const aspect = bookRect.width ? bookRect.height / bookRect.width : 1.6;
   const targetWidth = requestedWidth || 370;
   const margin = 8;
-  const targetHeight = 670;
+  const targetHeight = 600;
   const containerRect = container.getBoundingClientRect();
   const libraryRect = library.getBoundingClientRect();
   const headerHeight = header ? header.getBoundingClientRect().height : 0;
@@ -886,7 +886,7 @@ const getOpenOffsets = (book, options = {}) => {
 
   const shiftedLibraryRight = libraryRect.right + libraryShift;
   const shiftedLibraryLeft = libraryRect.left + libraryShift;
-  const rightCandidate = shiftedLibraryRight + gap;
+  const rightCandidate = shiftedLibraryRight + gap + 350;
   const leftCandidate = shiftedLibraryLeft - targetWidth - gap;
   let targetLeft = rightCandidate;
   if (targetLeft > maxLeft) {
@@ -896,7 +896,10 @@ const getOpenOffsets = (book, options = {}) => {
 
   const minTop = margin + headerHeight;
   const maxTop = Math.max(minTop, viewportHeight - margin - targetHeight);
-  const centeredTop = libraryRect.top + (libraryRect.height - targetHeight) / 2;
+  const centeredTop =
+    libraryRect.top +
+    libraryShift * 0 +
+    (libraryRect.height - targetHeight) / 2;
   const targetTop = Math.min(Math.max(centeredTop, minTop), maxTop);
 
   const bookShift = targetLeft - bookRect.left;
@@ -982,6 +985,7 @@ const openBook = (book) => {
   detachBook(book);
   const { libraryShift, bookShift, bookShiftY, targetWidth, targetHeight } =
     getOpenOffsets(book, { lockLibrary: hasOpenBook, targetWidth: 370 });
+  const forcedBookShiftX = 410;
   const coverWidth = Math.min(300, targetWidth);
   book.dataset.openCoverWidth = `${coverWidth}`;
   const contentScale = 1;
@@ -1002,7 +1006,7 @@ const openBook = (book) => {
       tl.to(
         book,
         {
-          x: bookShift,
+          x: forcedBookShiftX,
           y: bookShiftY,
           width: targetWidth,
           height: targetHeight,
@@ -1026,7 +1030,7 @@ const openBook = (book) => {
         });
   } else {
     animate(book, {
-      transform: `translate3d(${bookShift}px, ${bookShiftY}px, 0)`,
+      transform: `translate3d(${forcedBookShiftX}px, ${bookShiftY}px, 0)`,
       width: `${targetWidth}px`,
       height: `${targetHeight}px`,
     });
