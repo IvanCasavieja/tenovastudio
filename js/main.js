@@ -777,14 +777,6 @@ const setupServiceCardAnimations = () => {
     });
   };
 
-  const hideAll = () => {
-    serviceCards.forEach((card) => {
-      if (card.dataset.state === "hidden") return;
-      card.dataset.state = "hidden";
-      animateOut(card);
-    });
-  };
-
   setDirections();
   serviceCards.forEach(setHidden);
 
@@ -795,12 +787,10 @@ const setupServiceCardAnimations = () => {
         if (entry.isIntersecting) {
           setDirections();
           showAll();
-        } else {
-          hideAll();
         }
       });
     },
-    { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    { threshold: 0, rootMargin: "0px 0px -10px 0px" }
   );
 
   observer.observe(trigger);
@@ -958,13 +948,22 @@ const closeBook = (options = {}) => {
   const cover = book.querySelector(".book-cover");
   activeBook = null;
   book.classList.add("is-closing");
+  const baseWidth = Number(book.dataset.baseWidth || 64);
 
   const tl = window.gsap ? window.gsap.timeline() : null;
   if (tl) {
     tl.to(cover, { rotateY: 0, duration: 0.9, ease: "power3.out" }, 0)
       .to(
         book,
-        { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.9, ease: "power3.out" },
+        {
+          x: 0,
+          y: 0,
+          scaleX: 1,
+          scaleY: 1,
+          width: baseWidth,
+          duration: 0.9,
+          ease: "power3.out",
+        },
         0
       );
     if (library && !keepLibraryShift) {
@@ -975,7 +974,6 @@ const closeBook = (options = {}) => {
       if (library && !keepLibraryShift) {
         library.classList.remove("is-shifted");
       }
-      const baseWidth = Number(book.dataset.baseWidth || 64);
       book.style.width = "";
       book.style.setProperty("--book-width", `${baseWidth}px`);
       window.gsap.set(book, { clearProps: "transform" });
@@ -992,8 +990,7 @@ const closeBook = (options = {}) => {
       library.style.transform = "";
       library.style.removeProperty("--library-shift");
     }
-    const baseWidth = Number(book.dataset.baseWidth || 64);
-    book.style.width = "";
+    book.style.width = `${baseWidth}px`;
     book.style.setProperty("--book-width", `${baseWidth}px`);
     book.style.transform = "";
     cover.style.transform = "";
