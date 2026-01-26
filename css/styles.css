@@ -1,3 +1,6 @@
+/* ====================================================================== */
+/* Design Tokens */
+/* ====================================================================== */
 :root {
   --ink: #0a0a0a;
   --ivory: #f8f5f0;
@@ -10,15 +13,22 @@
   --header-height: 7vh;
 }
 
+/* ====================================================================== */
+/* Base & Reset */
+/* ====================================================================== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-body {
+body,
+button,
+input,
+select,
+textarea {
   margin: 0;
-  font-family: sans-serif;
+  font-family: "Libre Baskerville", serif;
   color: var(--ink);
   background: radial-gradient(circle at top, #fefcf8 0%, var(--ivory) 45%, #efe7da 100%);
   line-height: 1.6;
@@ -43,12 +53,18 @@ a {
   text-decoration: none;
 }
 
+/* ====================================================================== */
+/* Layout Shell */
+/* ====================================================================== */
 .page {
   min-height: 100vh;
   background-image: radial-gradient(circle at 10% 10%, rgba(200, 188, 168, 0.4), transparent 45%),
     radial-gradient(circle at 90% 20%, rgba(154, 143, 124, 0.25), transparent 50%);
 }
 
+/* ====================================================================== */
+/* Header & Navigation */
+/* ====================================================================== */
 .header {
   position: absolute;
   top: 0;
@@ -232,6 +248,9 @@ a {
   color: var(--ink);
 }
 
+/* ====================================================================== */
+/* Buttons & Links */
+/* ====================================================================== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -293,6 +312,9 @@ a {
   color: var(--ink);
 }
 
+/* ====================================================================== */
+/* Main Sections */
+/* ====================================================================== */
 main {
   display: flex;
   flex-direction: column;
@@ -319,6 +341,9 @@ main > section {
   scroll-margin-top: var(--header-height);
 }
 
+/* ====================================================================== */
+/* Hero */
+/* ====================================================================== */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -352,6 +377,9 @@ main > section {
   opacity: 0;
 }
 
+/* ====================================================================== */
+/* Typography */
+/* ====================================================================== */
 h1,
 h2,
 h3 {
@@ -369,12 +397,18 @@ h3 {
   line-height: 1.2;
 }
 
+/* ====================================================================== */
+/* Section Layout */
+/* ====================================================================== */
 .about,
 .services,
 .clients {
   padding: 64px 32px;
 }
 
+/* ====================================================================== */
+/* About */
+/* ====================================================================== */
 .about {
   position: relative;
   display: flex;
@@ -382,6 +416,7 @@ h3 {
   justify-content: center;
   gap: clamp(28px, 4vh, 40px);
   background: linear-gradient(120deg, rgba(229, 221, 207, 0.55) 0%, rgba(248, 245, 240, 0.15) 65%);
+  padding: clamp(40px, 6vh, 64px) 32px;
 }
 
 .about::after {
@@ -434,10 +469,9 @@ h3 {
   transition-delay: 0s;
 }
 
-.about {
-  padding: clamp(40px, 6vh, 64px) 32px;
-}
-
+/* ====================================================================== */
+/* Services */
+/* ====================================================================== */
 .services {
   display: flex;
   flex-direction: column;
@@ -445,6 +479,9 @@ h3 {
   gap: 32px;
 }
 
+/* ====================================================================== */
+/* Clients */
+/* ====================================================================== */
 .clients {
   display: flex;
   flex-direction: column;
@@ -494,36 +531,6 @@ h3 {
 .about-card li {
   font-size: 16px;
   margin-bottom: 8px;
-}
-
-.about-highlights {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-}
-
-.highlight {
-  background: rgba(248, 245, 240, 0.9);
-  border-radius: 20px;
-  border: 1px solid rgba(10, 10, 10, 0.12);
-  padding: 24px;
-  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.08);
-}
-
-.highlight-title {
-  display: block;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  font-size: 11px;
-  color: var(--stone);
-  margin-bottom: 12px;
-}
-
-.highlight p {
-  margin: 0;
-  font-size: 16px;
 }
 
 .about-signals {
@@ -774,6 +781,9 @@ h3 {
   gap: 28px;
 }
 
+/* ====================================================================== */
+/* Client Library */
+/* ====================================================================== */
 .library {
   width: min(440px, 74vw);
   min-height: min(700px, 72vh);
@@ -1103,6 +1113,9 @@ h3 {
   gap: 4px;
 }
 
+/* ====================================================================== */
+/* Books (Desktop Library) */
+/* ====================================================================== */
 .shelf {
   position: relative;
   display: grid;
@@ -1153,18 +1166,11 @@ h3 {
   z-index: 1;
 }
 
-.book,
-.empty-slot {
+.book {
   height: clamp(170px, 32vw, 240px);
   width: min(100%, clamp(36px, 10vw, var(--book-width, 64px)));
   position: relative;
   border-radius: 14px;
-}
-
-.empty-slot {
-  border: 1px dashed rgba(10, 10, 10, 0.18);
-  background: rgba(255, 255, 255, 0.4);
-  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.05);
 }
 
 .book {
@@ -1334,6 +1340,11 @@ h3 {
   box-shadow: none;
 }
 
+.book.is-open .book-page {
+  border-color: rgba(120, 86, 56, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
 .book-page-services {
   transform-origin: top left;
   box-sizing: border-box;
@@ -1343,9 +1354,7 @@ h3 {
 .book,
 .book-cover,
 .book-back,
-.book-page,
-.page-turn-layer,
-.page-turn-inner {
+.book-page {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -1355,129 +1364,8 @@ h3 {
   outline: 1px solid transparent;
 }
 
-.page-turn-inner {
-  transform: translateZ(0.1px);
-}
-
 .book-page.is-empty * {
   display: none;
-}
-
-.spread-left {
-  position: relative;
-  border-radius: 14px 8px 8px 14px;
-  box-shadow: inset -8px 0 12px rgba(0, 0, 0, 0.06);
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.spread-right {
-  position: relative;
-  border-radius: 8px 14px 14px 8px;
-  box-shadow: inset 8px 0 12px rgba(0, 0, 0, 0.06);
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.spread-left::after,
-.spread-right::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 1px rgba(120, 86, 56, 0.25);
-  transform: translateZ(0.2px);
-}
-
-.page-turn-layer {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  left: 50%;
-  opacity: 0;
-  pointer-events: none;
-  transform-style: preserve-3d;
-  z-index: 6;
-}
-
-.page-turn-layer.is-left {
-  left: 0;
-  transform-origin: right center;
-}
-
-.page-turn-layer.is-right {
-  left: 50%;
-  transform-origin: left center;
-}
-
-.page-turn-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--book-surface);
-  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.08);
-  backface-visibility: hidden;
-}
-
-.book.is-open .book-page,
-.book.is-open .page-turn-inner {
-  border-color: rgba(120, 86, 56, 0.45);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-}
-
-.book.is-open .spread-left,
-.book.is-open .spread-right {
-  outline: none;
-  outline-offset: 0;
-}
-
-.page-turn-layer::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(10, 10, 10, 0.08),
-    rgba(10, 10, 10, 0)
-  );
-  opacity: 0.65;
-  pointer-events: none;
-}
-
-.page-art {
-  height: 90px;
-  border-radius: 12px;
-  background: linear-gradient(130deg, #efe6d8 0%, #f8f1e6 45%, #e6dbc9 100%);
-  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.08);
-}
-
-.page-tag {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  color: var(--stone);
-}
-
-.page-title {
-  font-size: 18px;
-  margin: 0;
-}
-
-.page-text {
-  font-size: 13px;
-  margin: 0;
-  color: #4a4238;
-}
-
-.page-list {
-  margin: 0;
-  padding-left: 16px;
-  font-size: 12px;
-  color: #5d5449;
-  display: grid;
-  gap: 5px;
 }
 
 .book-page-services {
@@ -1639,6 +1527,9 @@ h3 {
 }
 
 
+/* ====================================================================== */
+/* Service Cards */
+/* ====================================================================== */
 .service-card {
   background: rgba(248, 245, 240, 0.9);
   border-radius: 24px;
@@ -1674,6 +1565,9 @@ h3 {
   margin-top: auto;
 }
 
+/* ====================================================================== */
+/* Contact */
+/* ====================================================================== */
 .contact-banner {
   background: url("../assets/images/banner.jpg") center/cover no-repeat;
   padding: 0;
@@ -1768,6 +1662,9 @@ h3 {
   color: var(--stone);
 }
 
+/* ====================================================================== */
+/* Footer */
+/* ====================================================================== */
 .footer {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -1816,6 +1713,9 @@ h3 {
   font-family: inherit;
 }
 
+/* ====================================================================== */
+/* Animations */
+/* ====================================================================== */
 @keyframes heroReveal {
   from {
     opacity: 0;
@@ -1902,6 +1802,9 @@ h3 {
 }
 
 
+/* ====================================================================== */
+/* Responsive */
+/* ====================================================================== */
 @media (max-width: 1200px) {
   .service-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2113,6 +2016,9 @@ h3 {
   }
 }
 
+/* ====================================================================== */
+/* Reduced Motion */
+/* ====================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .hero-title,
   .service-card {
@@ -2133,8 +2039,7 @@ h3 {
   }
 
   .book,
-  .book-cover,
-  .page-turn-layer {
+  .book-cover {
     transition: none;
   }
 

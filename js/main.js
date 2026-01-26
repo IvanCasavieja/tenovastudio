@@ -1,3 +1,6 @@
+// ======================================================================
+// DOM REFERENCES
+// ======================================================================
 const serviceSelect = document.querySelector("#servicio-select");
 const serviceLinks = document.querySelectorAll("[data-service]");
 const serviceCards = document.querySelectorAll(".service-card");
@@ -8,20 +11,153 @@ const navWrap = document.querySelector(".nav-wrap");
 const menuToggle = document.querySelector(".menu-toggle");
 const langButtons = document.querySelectorAll(".lang-btn");
 const langSelect = document.querySelector(".lang-select");
+// ======================================================================
+// CONFIGURATION & STATE
+// ======================================================================
 const DEFAULT_LANG = "es";
 const MENU_BREAKPOINT = 900;
 const LIBRARY_MOBILE_BREAKPOINT = MENU_BREAKPOINT;
+const OPEN_BOOK_CONFIG = {
+  width: 370,
+  height: 600,
+  margin: 12,
+  gap: 24,
+  libraryShiftBase: 350,
+  bookOffsetX: 350,
+};
 let translations = {};
 let currentLang = DEFAULT_LANG;
 let clientsData = [];
 let activeBook = null;
-let isBookAnimating = false;
+let isTransitioning = false;
 let libraryMode = null;
+let isLibraryShifted = false;
+let libraryShiftX = 0;
+let libraryAnchorLeft = null;
+let queuedAction = null;
 const library = document.querySelector("#library");
 const libraryShelves = document.querySelector("#library-shelves");
 const bookPages = new WeakMap();
 const bookClients = new WeakMap();
 const bookPlaceholders = new WeakMap();
+const DEBUG_LIBRARY_FLOW =
+  new URLSearchParams(window.location.search).has("debugLibrary");
+
+const getBookLabel = (book) => {
+  if (!book) return "none";
+  const band = book.querySelector(".book-band");
+  if (band && band.textContent) return band.textContent.trim();
+  if (book.dataset && book.dataset.clientName) return book.dataset.clientName;
+  return "book";
+};
+
+const logLibrary = (event, details = {}) => {
+  if (!DEBUG_LIBRARY_FLOW) return;
+  const time = Math.round(performance.now());
+  console.log(`[library] ${time}ms ${event}`, {
+    activeBook: getBookLabel(activeBook),
+    isTransitioning,
+    isLibraryShifted,
+    libraryShiftX,
+    ...details,
+  });
+};
+
+const setIsTransitioning = (value, reason = "") => {
+  if (isTransitioning === value) return;
+  isTransitioning = value;
+  logLibrary("flag isTransitioning", { value, reason });
+};
+
+const setActiveBook = (book, reason = "") => {
+  if (activeBook === book) return;
+  activeBook = book;
+  logLibrary("flag activeBook", { value: getBookLabel(book), reason });
+};
+
+const setLibraryShiftState = (shifted, shiftX, reason = "") => {
+  const nextShiftX =
+    typeof shiftX === "number" ? Math.round(shiftX) : libraryShiftX;
+  const changed =
+    isLibraryShifted !== shifted || libraryShiftX !== nextShiftX;
+  isLibraryShifted = shifted;
+  libraryShiftX = nextShiftX;
+  if (changed) {
+    logLibrary("flag isLibraryShifted", {
+      value: shifted,
+      shiftX: libraryShiftX,
+      reason,
+    });
+  }
+};
+
+const hasQueuedOpen = () => queuedAction && queuedAction.type === "open";
+
+const resetLibraryShift = (options = {}) => {
+  const { onComplete } = options;
+  if (!library || !isLibraryShifted) {
+    setLibraryShiftState(false, 0, "reset-skip");
+    libraryAnchorLeft = null;
+    if (onComplete) onComplete();
+    return;
+  }
+  logLibrary("libraryShift reset start");
+  if (window.gsap) {
+    window.gsap.killTweensOf(library);
+    window.gsap.to(library, {
+      x: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      onComplete: () => {
+        window.gsap.set(library, { clearProps: "transform" });
+        library.classList.remove("is-shifted");
+        library.style.removeProperty("--library-shift");
+        setLibraryShiftState(false, 0, "reset");
+        libraryAnchorLeft = null;
+        logLibrary("libraryShift reset complete");
+        if (onComplete) onComplete();
+      },
+    });
+  } else {
+    library.classList.remove("is-shifted");
+    library.style.transform = "";
+    library.style.removeProperty("--library-shift");
+    setLibraryShiftState(false, 0, "reset");
+    libraryAnchorLeft = null;
+    logLibrary("libraryShift reset complete");
+    if (onComplete) onComplete();
+  }
+};
+
+const alignDetachedBookToPlaceholder = (book) => {
+  if (!book || book.dataset.detached !== "true") return;
+  const payload = bookPlaceholders.get(book);
+  if (!payload || !payload.placeholder) return;
+  const placeholderRect = payload.placeholder.getBoundingClientRect();
+  const targetLeft = Math.round(placeholderRect.left + window.scrollX);
+  const targetTop = Math.round(placeholderRect.top + window.scrollY);
+  const currentRect = book.getBoundingClientRect();
+  const currentLeft = currentRect.left + window.scrollX;
+  const currentTop = currentRect.top + window.scrollY;
+  const deltaX = Math.round(currentLeft - targetLeft);
+  const deltaY = Math.round(currentTop - targetTop);
+
+  book.style.left = `${targetLeft}px`;
+  book.style.top = `${targetTop}px`;
+  book.dataset.detachedLeft = `${targetLeft}`;
+  book.dataset.detachedTop = `${targetTop}`;
+
+  if (window.gsap) {
+    window.gsap.set(book, { x: deltaX, y: deltaY });
+  } else {
+    book.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0)`;
+  }
+  logLibrary("alignDetachedBook", { book: getBookLabel(book), deltaX, deltaY });
+};
+
+// ======================================================================
+// SERVICE METADATA
+// ======================================================================
 const serviceIcons = {
   analisis:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="20" x2="20" y2="20"></line><rect x="5" y="11" width="3" height="7" rx="1"></rect><rect x="10.5" y="8" width="3" height="10" rx="1"></rect><rect x="16" y="5" width="3" height="13" rx="1"></rect></svg>',
@@ -75,6 +211,9 @@ const serviceFallbackLabels = {
   default: "Servicio",
 };
 
+// ======================================================================
+// TEXT & SERVICE HELPERS
+// ======================================================================
 const normalizeText = (text) =>
   (text || "")
     .toLowerCase()
@@ -99,6 +238,9 @@ const getServiceLabel = (key) => {
   return serviceFallbackLabels[key] || serviceFallbackLabels.default;
 };
 
+// ======================================================================
+// SERVICE SELECTION (CONTACT FORM)
+// ======================================================================
 const normalizeService = (value) => {
   if (!value) return "";
   return value.trim();
@@ -130,6 +272,9 @@ const readServiceFromUrl = () => {
   }
 };
 
+// ======================================================================
+// HEADER & NAV MENU
+// ======================================================================
 const updateHeaderState = () => {
   if (!header) return;
   const triggerPoint = 10;
@@ -159,12 +304,16 @@ const handleResize = () => {
   if (window.innerWidth > MENU_BREAKPOINT) {
     setMenuState(false);
   }
+  repositionActiveBook();
   updateLibraryLayout();
 };
 
 const isLibraryMobile = () =>
   window.innerWidth <= LIBRARY_MOBILE_BREAKPOINT;
 
+// ======================================================================
+// TRANSLATIONS & CLIENT LABELS
+// ======================================================================
 const getTranslation = (key) => {
   if (translations[currentLang] && translations[currentLang][key]) {
     return translations[currentLang][key];
@@ -184,24 +333,34 @@ const getClientName = (client, lang) => {
   return name || "Cliente";
 };
 
+// ======================================================================
+// LIBRARY RENDERING (MOBILE + DESKTOP)
+// ======================================================================
 const resetLibraryState = () => {
   if (window.gsap) {
     window.gsap.killTweensOf([library, activeBook]);
   }
   if (activeBook) {
+    logLibrary("resetLibraryState activeBook cleanup");
     const cover = activeBook.querySelector(".book-cover");
     activeBook.classList.remove("is-selected", "is-open", "is-closing");
     activeBook.style.transform = "";
     if (cover) {
       cover.style.transform = "";
+      cover.style.width = "";
     }
-    activeBook = null;
+    reattachBook(activeBook);
+    setActiveBook(null, "resetLibraryState");
   }
   if (library) {
     library.classList.remove("is-shifted");
     library.style.transform = "";
     library.style.removeProperty("--library-shift");
   }
+  setLibraryShiftState(false, 0, "resetLibraryState");
+  libraryAnchorLeft = null;
+  setIsTransitioning(false, "resetLibraryState");
+  queuedAction = null;
 };
 
 const renderLibraryCards = (lang) => {
@@ -296,42 +455,6 @@ const renderLibraryCards = (lang) => {
   });
 
   libraryShelves.appendChild(fragment);
-};
-
-const buildPage = (page) => {
-  const fragment = document.createDocumentFragment();
-
-  const art = document.createElement("div");
-  art.className = "page-art";
-
-  const tag = document.createElement("span");
-  tag.className = "page-tag";
-  tag.textContent = page.title;
-
-  const title = document.createElement("h4");
-  title.className = "page-title";
-  title.textContent = page.subtitle;
-
-  const text = document.createElement("p");
-  text.className = "page-text";
-  text.textContent = page.text;
-
-  const list = document.createElement("ul");
-  list.className = "page-list";
-  const bullets = Array.isArray(page.bullets) ? page.bullets : [];
-  bullets.forEach((bullet) => {
-    const item = document.createElement("li");
-    item.textContent = bullet;
-    list.appendChild(item);
-  });
-
-  fragment.appendChild(art);
-  fragment.appendChild(tag);
-  fragment.appendChild(title);
-  fragment.appendChild(text);
-  fragment.appendChild(list);
-
-  return fragment;
 };
 
 const buildServicesPage = (client, pages) => {
@@ -501,17 +624,6 @@ const buildServicesPage = (client, pages) => {
   return fragment;
 };
 
-const renderPageContent = (container, page) => {
-  if (!container) return;
-  container.innerHTML = "";
-  if (!page) {
-    container.classList.add("is-empty");
-    return;
-  }
-  container.classList.remove("is-empty");
-  container.appendChild(buildPage(page));
-};
-
 const renderServicesContent = (container, pages, client) => {
   if (!container) return;
   container.innerHTML = "";
@@ -551,7 +663,6 @@ const renderBookPages = (book) => {
   }
   renderServicesContent(right, pages, client);
   applyServicesScale(book, Number(book.dataset.contentScale || 1));
-  book.dataset.spreadIndex = "0";
 };
 
 const createBook = (client, lang) => {
@@ -561,8 +672,6 @@ const createBook = (client, lang) => {
   book.className = "book";
   book.style.setProperty("--book-width", `${width}px`);
   book.dataset.baseWidth = `${width}`;
-  book.dataset.clientId = client.id;
-  book.dataset.spreadIndex = "0";
 
   const back = document.createElement("div");
   back.className = "book-back";
@@ -601,23 +710,6 @@ const createBook = (client, lang) => {
   renderBookPages(book);
 
   return book;
-};
-
-// Flipbook state: spreadIndex points to the left page, right is left + 1.
-const renderSpread = (book, spreadIndex) => {
-  if (!book) return;
-  const pages = bookPages.get(book) || [];
-  const client = bookClients.get(book);
-  const coverInner = book.querySelector(".book-cover-inner");
-  const right = book.querySelector(".book-page-right");
-  const safeIndex = Math.max(0, spreadIndex);
-  if (coverInner) {
-    coverInner.innerHTML = "";
-    coverInner.classList.add("is-empty");
-  }
-  renderServicesContent(right, pages, client);
-  applyServicesScale(book, Number(book.dataset.contentScale || 1));
-  book.dataset.spreadIndex = `${safeIndex}`;
 };
 
 const createEmptySlot = () => {
@@ -685,6 +777,9 @@ const renderLibrary = (lang) => {
   }
 };
 
+// ======================================================================
+// ANIMATION HELPERS
+// ======================================================================
 const animate = (target, props) => {
   if (window.gsap) {
     return window.gsap.to(target, props);
@@ -751,22 +846,6 @@ const setupServiceCardAnimations = () => {
     } else {
       card.style.opacity = "1";
       card.style.transform = "translateX(0)";
-    }
-  };
-
-  const animateOut = (card) => {
-    const xOffset = getOffset(card);
-    if (window.gsap) {
-      window.gsap.killTweensOf(card);
-      window.gsap.to(card, {
-        autoAlpha: 0,
-        x: xOffset,
-        duration: 0.6,
-        ease: "power3.in",
-      });
-    } else {
-      card.style.opacity = "0";
-      card.style.transform = `translateX(${xOffset}px)`;
     }
   };
 
@@ -837,85 +916,140 @@ const setupAboutReveal = () => {
   observer.observe(aboutSection);
 };
 
-const getOpenOffsets = (book, options = {}) => {
-  if (!library || !book) {
-    return {
-      libraryShift: 0,
-      bookShift: 0,
-      bookShiftY: 0,
-      targetWidth: 0,
-      targetHeight: 0,
-    };
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+const getOpenBookSize = () => {
+  const { width, height, margin } = OPEN_BOOK_CONFIG;
+  const headerHeight = header ? header.getBoundingClientRect().height : 0;
+  const availableHeight = window.innerHeight - margin * 2 - headerHeight;
+  const availableWidth = window.innerWidth - margin * 2;
+  const targetHeight = Math.min(height, Math.max(320, availableHeight));
+  const targetWidth = Math.min(width, Math.max(280, availableWidth));
+  return {
+    targetWidth: Math.round(targetWidth),
+    targetHeight: Math.round(targetHeight),
+  };
+};
+
+const getLibraryAnchorLeft = () => {
+  if (libraryAnchorLeft !== null) return libraryAnchorLeft;
+  const referenceBook = libraryShelves
+    ? libraryShelves.querySelector(".book:not(.book-empty)")
+    : null;
+  const referenceRect = referenceBook
+    ? referenceBook.getBoundingClientRect()
+    : library
+      ? library.getBoundingClientRect()
+      : null;
+  const baseLeft = referenceRect ? referenceRect.left : 0;
+  libraryAnchorLeft = Math.round(baseLeft);
+  return libraryAnchorLeft;
+};
+
+const getLibraryShift = (targetWidth) => {
+  if (!library) return 0;
+  const { margin, gap, libraryShiftBase } = OPEN_BOOK_CONFIG;
+  const viewportWidth = window.innerWidth;
+  const libraryRect = library.getBoundingClientRect();
+  let shift = -libraryShiftBase;
+  const availableRight = viewportWidth - margin - (libraryRect.right + shift);
+  const needed = targetWidth + gap - availableRight;
+  if (needed > 0) {
+    shift -= needed;
   }
-  const { lockLibrary = false, targetWidth: requestedWidth } = options;
-  const snap = (value) => Math.round(value);
-  const container = library.closest(".clients-inner") || library.parentElement;
-  if (!container) {
-    return {
-      libraryShift: 0,
-      bookShift: 0,
-      bookShiftY: 0,
-      targetWidth: 0,
-      targetHeight: 0,
-    };
-  }
+  return Math.round(shift);
+};
+
+const getBookAnchor = (targetWidth, targetHeight, options = {}) => {
+  const { lockLibrary = false, libraryShift = 0 } = options;
+  const { margin } = OPEN_BOOK_CONFIG;
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
-  const bookRect = book.getBoundingClientRect();
-  const aspect = bookRect.width ? bookRect.height / bookRect.width : 1.6;
-  const targetWidth = requestedWidth || 370;
-  const margin = 8;
-  const targetHeight = 600;
-  const containerRect = container.getBoundingClientRect();
-  const libraryRect = library.getBoundingClientRect();
   const headerHeight = header ? header.getBoundingClientRect().height : 0;
-
   const minLeft = margin;
-  const maxLeft = Math.max(margin, viewportWidth - margin - targetWidth);
-  const gap = 24;
-  let libraryShift = 0;
-  if (!lockLibrary) {
-    libraryShift = -350;
-    const availableRight =
-      viewportWidth - margin - (libraryRect.right + libraryShift);
-    const needed = targetWidth + gap - availableRight;
-    if (needed > 0) {
-      libraryShift = -(350 + needed);
-    }
-  }
-
-  const shiftedLibraryRight = libraryRect.right + libraryShift;
-  const shiftedLibraryLeft = libraryRect.left + libraryShift;
-  const rightCandidate = shiftedLibraryRight + gap + 350;
-  const leftCandidate = shiftedLibraryLeft - targetWidth - gap;
-  let targetLeft = rightCandidate;
-  if (targetLeft > maxLeft) {
-    targetLeft = Math.max(minLeft, leftCandidate);
-  }
-  targetLeft = Math.min(Math.max(targetLeft, minLeft), maxLeft);
-
+  const maxLeft = Math.max(minLeft, viewportWidth - margin - targetWidth);
   const minTop = margin + headerHeight;
   const maxTop = Math.max(minTop, viewportHeight - margin - targetHeight);
-  const centeredTop =
-    libraryRect.top +
-    libraryShift * 0 +
-    (libraryRect.height - targetHeight) / 2;
-  const targetTop = Math.min(Math.max(centeredTop, minTop), maxTop);
 
-  const bookShift = targetLeft - bookRect.left;
+  let targetLeft = Math.round((viewportWidth - targetWidth) * 0.62);
+  let targetTop = Math.round((viewportHeight - targetHeight) / 2);
+  if (library) {
+    const libraryRect = library.getBoundingClientRect();
+    const effectiveLeft = lockLibrary ? libraryRect.left : libraryRect.left + libraryShift;
+    targetLeft = effectiveLeft;
+    targetTop = libraryRect.top + (libraryRect.height - targetHeight) / 2;
+  }
+  targetLeft = clamp(targetLeft, minLeft, maxLeft);
+  targetTop = clamp(Math.round(targetTop), minTop, maxTop);
+
+  return { targetLeft, targetTop };
+};
+
+const getBookOriginRect = (book) => {
+  if (!book) return null;
+  const storedLeft = Number(book.dataset.detachedLeft);
+  const storedTop = Number(book.dataset.detachedTop);
+  if (Number.isFinite(storedLeft) && Number.isFinite(storedTop)) {
+    return {
+      left: storedLeft - window.scrollX,
+      top: storedTop - window.scrollY,
+    };
+  }
+  return book.getBoundingClientRect();
+};
+
+// ======================================================================
+// BOOK OPEN/CLOSE INTERACTIONS
+// ======================================================================
+const getOpenOffsets = (book, options = {}) => {
+  if (!book) {
+    return {
+      libraryShift: 0,
+      bookShift: 0,
+      bookShiftY: 0,
+      targetWidth: 0,
+      targetHeight: 0,
+    };
+  }
+  const {
+    lockLibrary = false,
+    libraryShift: forcedShift,
+    targetWidth: forcedWidth,
+    targetHeight: forcedHeight,
+  } = options;
+  const size =
+    forcedWidth && forcedHeight ? { targetWidth: forcedWidth, targetHeight: forcedHeight } : getOpenBookSize();
+  const targetWidth = forcedWidth || size.targetWidth;
+  const targetHeight = forcedHeight || size.targetHeight;
+  const libraryShift =
+    typeof forcedShift === "number" ? forcedShift : getLibraryShift(targetWidth);
+  const { targetTop } = getBookAnchor(targetWidth, targetHeight, {
+    lockLibrary,
+    libraryShift,
+  });
+  const referenceLeft = getLibraryAnchorLeft();
+  const bookRect = getBookOriginRect(book);
+  const deltaX = bookRect.left - referenceLeft;
+  const bookShift = OPEN_BOOK_CONFIG.bookOffsetX - deltaX;
   const bookShiftY = targetTop - bookRect.top;
-
   return {
-    libraryShift: snap(libraryShift),
-    bookShift: snap(bookShift),
-    bookShiftY: snap(bookShiftY),
-    targetWidth: snap(targetWidth),
-    targetHeight: snap(targetHeight),
+    libraryShift,
+    bookShift: Math.round(bookShift),
+    bookShiftY: Math.round(bookShiftY),
+    targetWidth,
+    targetHeight,
   };
 };
 
 const detachBook = (book) => {
-  if (!book || book.dataset.detached === "true") return null;
+  if (!book || book.dataset.detached === "true") {
+    logLibrary("detachBook skip", {
+      book: getBookLabel(book),
+      reason: !book ? "no-book" : "already-detached",
+    });
+    return null;
+  }
+  logLibrary("detachBook start", { book: getBookLabel(book) });
   const rect = book.getBoundingClientRect();
   const placeholder = document.createElement("div");
   placeholder.className = "book-placeholder";
@@ -930,22 +1064,31 @@ const detachBook = (book) => {
 
   document.body.appendChild(book);
   book.style.position = "absolute";
-  book.style.left = `${rect.left + window.scrollX}px`;
-  book.style.top = `${rect.top + window.scrollY}px`;
+  const detachedLeft = rect.left + window.scrollX;
+  const detachedTop = rect.top + window.scrollY;
+  book.style.left = `${detachedLeft}px`;
+  book.style.top = `${detachedTop}px`;
   book.style.width = `${rect.width}px`;
   book.style.height = `${rect.height}px`;
   book.style.margin = "0";
   book.style.zIndex = "30";
   book.dataset.detached = "true";
+  book.dataset.detachedLeft = `${detachedLeft}`;
+  book.dataset.detachedTop = `${detachedTop}`;
 
   const payload = { placeholder, parent, nextSibling };
   bookPlaceholders.set(book, payload);
+  logLibrary("detachBook complete", { book: getBookLabel(book) });
   return payload;
 };
 
 const reattachBook = (book) => {
   const payload = bookPlaceholders.get(book);
-  if (!payload) return;
+  if (!payload) {
+    logLibrary("reattachBook skip", { book: getBookLabel(book) });
+    return;
+  }
+  logLibrary("reattachBook start", { book: getBookLabel(book) });
   const { placeholder, parent, nextSibling } = payload;
   if (parent) {
     if (nextSibling && nextSibling.parentElement === parent) {
@@ -959,33 +1102,132 @@ const reattachBook = (book) => {
   }
   bookPlaceholders.delete(book);
   delete book.dataset.detached;
+  delete book.dataset.detachedLeft;
+  delete book.dataset.detachedTop;
   book.style.position = "";
   book.style.left = "";
   book.style.top = "";
   book.style.margin = "";
   book.style.zIndex = "";
+  logLibrary("reattachBook complete", { book: getBookLabel(book) });
+};
+
+const queueAction = (action) => {
+  queuedAction = action;
+  logLibrary("queueAction", {
+    action: action ? action.type : "none",
+    book: action && action.book ? getBookLabel(action.book) : undefined,
+  });
+};
+
+const flushQueuedAction = () => {
+  if (isTransitioning) {
+    logLibrary("flushQueuedAction skip", { reason: "transitioning" });
+    return;
+  }
+  if (!queuedAction) {
+    logLibrary("flushQueuedAction skip", { reason: "empty" });
+    return;
+  }
+  const action = queuedAction;
+  queuedAction = null;
+  logLibrary("flushQueuedAction run", {
+    action: action.type,
+    book: action.book ? getBookLabel(action.book) : undefined,
+  });
+  if (action.type === "open") {
+    requestBookOpen(action.book);
+  } else if (action.type === "close") {
+    requestBookClose();
+  }
+};
+
+const requestBookOpen = (book) => {
+  if (!book) return;
+  logLibrary("requestBookOpen start", { book: getBookLabel(book) });
+  if (isTransitioning) {
+    queueAction({ type: "open", book });
+    return;
+  }
+  if (activeBook === book) {
+    requestBookClose();
+    return;
+  }
+  if (activeBook) {
+    setIsTransitioning(true, "requestBookOpen switch");
+    closeBook({
+      onComplete: () => {
+        logLibrary("requestBookOpen switch close complete", {
+          nextBook: getBookLabel(book),
+        });
+        openBook(book);
+      },
+    });
+    return;
+  }
+  setIsTransitioning(true, "requestBookOpen");
+  openBook(book);
+};
+
+const requestBookClose = () => {
+  logLibrary("requestBookClose start", {
+    book: getBookLabel(activeBook),
+  });
+  if (isTransitioning) {
+    queueAction({ type: "close" });
+    return;
+  }
+  if (!activeBook) {
+    logLibrary("requestBookClose skip", { reason: "no-active" });
+    return;
+  }
+  setIsTransitioning(true, "requestBookClose");
+  closeBook({
+    onComplete: () => {
+      logLibrary("requestBookClose close complete");
+      const shouldResetLibrary = !activeBook && !hasQueuedOpen();
+      if (shouldResetLibrary) {
+        resetLibraryShift({
+          onComplete: () => {
+            setIsTransitioning(false, "requestBookClose reset complete");
+            flushQueuedAction();
+          },
+        });
+      } else {
+        setIsTransitioning(false, "requestBookClose complete");
+        flushQueuedAction();
+      }
+    },
+  });
 };
 
 const openBook = (book) => {
-  if (!book || isBookAnimating) return;
-  if (activeBook === book) {
-    closeBook();
-    return;
-  }
-  const hasOpenBook = Boolean(activeBook);
-  if (hasOpenBook) {
-    closeBook({ keepLibraryShift: true });
-  }
-  isBookAnimating = true;
-  activeBook = book;
+  if (!book) return;
+  const shouldShiftLibrary = !isLibraryShifted;
+  logLibrary("openBook start", {
+    book: getBookLabel(book),
+    shouldShiftLibrary,
+  });
   const cover = book.querySelector(".book-cover");
+  if (window.gsap) {
+    window.gsap.killTweensOf([book, cover, library]);
+  }
+  setActiveBook(book, "openBook");
   const baseRect = book.getBoundingClientRect();
   book.dataset.baseWidthActual = `${Math.round(baseRect.width)}`;
   book.dataset.baseHeightActual = `${Math.round(baseRect.height)}`;
   detachBook(book);
-  const { libraryShift, bookShift, bookShiftY, targetWidth, targetHeight } =
-    getOpenOffsets(book, { lockLibrary: hasOpenBook, targetWidth: 370 });
-  const forcedBookShiftX = 410;
+
+  const { targetWidth, targetHeight } = getOpenBookSize();
+  const libraryShift = shouldShiftLibrary
+    ? getLibraryShift(targetWidth)
+    : libraryShiftX;
+  const { bookShift, bookShiftY } = getOpenOffsets(book, {
+    lockLibrary: !shouldShiftLibrary,
+    libraryShift,
+    targetWidth,
+    targetHeight,
+  });
   const coverWidth = Math.min(300, targetWidth);
   book.dataset.openCoverWidth = `${coverWidth}`;
   const contentScale = 1;
@@ -993,65 +1235,110 @@ const openBook = (book) => {
   applyServicesScale(book, contentScale);
 
   book.classList.add("is-selected", "is-open");
-  if (library && !window.gsap && !hasOpenBook) {
-    library.style.setProperty("--library-shift", `${libraryShift}px`);
-    library.classList.add("is-shifted");
+  if (shouldShiftLibrary && library) {
+    setLibraryShiftState(true, libraryShift, "openBook");
+    if (!window.gsap) {
+      library.style.setProperty("--library-shift", `${libraryShiftX}px`);
+      library.classList.add("is-shifted");
+    }
   }
 
   const tl = window.gsap ? window.gsap.timeline() : null;
   if (tl) {
-    if (library && !hasOpenBook) {
+    if (library && shouldShiftLibrary) {
       tl.to(library, { x: libraryShift, duration: 0.9, ease: "power3.out" }, 0);
     }
-      tl.to(
-        book,
+    tl.to(
+      book,
+      {
+        x: bookShift,
+        y: bookShiftY,
+        width: targetWidth,
+        height: targetHeight,
+        duration: 0.9,
+        ease: "power3.out",
+      },
+      0
+    )
+      .to(
+        cover,
         {
-          x: forcedBookShiftX,
-          y: bookShiftY,
-          width: targetWidth,
-          height: targetHeight,
-          duration: 0.9,
+          rotateY: -165,
+          width: coverWidth,
+          duration: 1.1,
           ease: "power3.out",
         },
-        0
+        0.1
       )
-        .to(
-          cover,
-          {
-            rotateY: -165,
-            width: coverWidth,
-            duration: 1.1,
-            ease: "power3.out",
-          },
-          0.1
-        )
-        .add(() => {
-          isBookAnimating = false;
-        });
+      .add(() => {
+        logLibrary("openBook complete", { book: getBookLabel(book) });
+        setIsTransitioning(false, "openBook complete");
+        flushQueuedAction();
+      });
   } else {
     animate(book, {
-      transform: `translate3d(${forcedBookShiftX}px, ${bookShiftY}px, 0)`,
+      transform: `translate3d(${bookShift}px, ${bookShiftY}px, 0)`,
       width: `${targetWidth}px`,
       height: `${targetHeight}px`,
     });
     cover.style.width = `${coverWidth}px`;
     animate(cover, { transform: "rotateY(-165deg)" });
-    isBookAnimating = false;
+    logLibrary("openBook complete", { book: getBookLabel(book) });
+    setIsTransitioning(false, "openBook complete");
+    flushQueuedAction();
   }
 };
 
 const closeBook = (options = {}) => {
-  if (!activeBook) return;
-  const { keepLibraryShift = false } = options;
+  if (!activeBook) {
+    if (options.onComplete) options.onComplete();
+    return;
+  }
+  const { onComplete } = options;
   const book = activeBook;
   const cover = book.querySelector(".book-cover");
-  activeBook = null;
+  logLibrary("closeBook start", {
+    book: getBookLabel(book),
+  });
+  setActiveBook(null, "closeBook");
   book.classList.add("is-closing");
   const baseWidthVar = Number(book.dataset.baseWidth || 64);
   const baseWidth = Number(book.dataset.baseWidthActual || baseWidthVar);
   const baseHeight = Number(
     book.dataset.baseHeightActual || book.getBoundingClientRect().height
   );
+
+  if (window.gsap) {
+    window.gsap.killTweensOf([book, cover, library]);
+  }
+  alignDetachedBookToPlaceholder(book);
+
+  const finishClose = () => {
+    book.classList.remove("is-selected", "is-open", "is-closing");
+    book.style.width = "";
+    book.style.height = "";
+    book.style.setProperty("--book-width", `${baseWidthVar}px`);
+    if (window.gsap) {
+      window.gsap.set(book, { clearProps: "transform" });
+      if (cover) {
+        window.gsap.set(cover, { clearProps: "transform" });
+      }
+    } else {
+      book.style.transform = "";
+      if (cover) {
+        cover.style.transform = "";
+      }
+    }
+    if (cover) {
+      cover.style.width = "";
+    }
+    delete book.dataset.openCoverWidth;
+    delete book.dataset.contentScale;
+    applyServicesScale(book, 1);
+    reattachBook(book);
+    logLibrary("closeBook complete", { book: getBookLabel(book) });
+    if (onComplete) onComplete();
+  };
 
   const tl = window.gsap ? window.gsap.timeline() : null;
   if (tl) {
@@ -1072,91 +1359,52 @@ const closeBook = (options = {}) => {
         },
         0
       );
-    if (library && !keepLibraryShift) {
-      tl.to(library, { x: 0, duration: 0.9, ease: "power3.out" }, 0);
-    }
     tl.add(() => {
-      book.classList.remove("is-selected", "is-open", "is-closing");
-      if (library && !keepLibraryShift) {
-        library.classList.remove("is-shifted");
-      }
-      book.style.width = "";
-      book.style.height = "";
-      book.style.setProperty("--book-width", `${baseWidthVar}px`);
-      window.gsap.set(book, { clearProps: "transform" });
-      if (cover) {
-        window.gsap.set(cover, { clearProps: "transform" });
-      }
-      delete book.dataset.openCoverWidth;
-      delete book.dataset.contentScale;
-      applyServicesScale(book, 1);
-      reattachBook(book);
+      finishClose();
     });
   } else {
-    book.classList.remove("is-selected", "is-open", "is-closing");
-    if (library && !keepLibraryShift) {
-      library.classList.remove("is-shifted");
-      library.style.transform = "";
-      library.style.removeProperty("--library-shift");
-    }
     book.style.width = `${baseWidth}px`;
     book.style.height = `${baseHeight}px`;
-    book.style.setProperty("--book-width", `${baseWidthVar}px`);
-    book.style.transform = "";
-    cover.style.transform = "";
-    cover.style.width = "";
-    delete book.dataset.contentScale;
-    applyServicesScale(book, 1);
-    reattachBook(book);
+    finishClose();
   }
 };
 
-const turnPage = (book, direction) => {
-  if (!book || isBookAnimating) return;
-  const pages = bookPages.get(book) || [];
-  const spreadIndex = Number(book.dataset.spreadIndex || 0);
-  const nextIndex = direction === "next" ? spreadIndex + 2 : spreadIndex - 2;
-  if (nextIndex < 0 || nextIndex >= pages.length) return;
+const repositionActiveBook = () => {
+  if (!activeBook || isTransitioning) return;
+  const book = activeBook;
+  const cover = book.querySelector(".book-cover");
+  const { targetWidth, targetHeight } = getOpenBookSize();
+  const { bookShift, bookShiftY } = getOpenOffsets(book, {
+    lockLibrary: isLibraryShifted,
+    libraryShift: libraryShiftX,
+    targetWidth,
+    targetHeight,
+  });
+  const coverWidth = Math.min(300, targetWidth);
 
-  const turnLayer = book.querySelector(".page-turn-layer");
-  const turnInner = book.querySelector(".page-turn-inner");
-  const isNext = direction === "next";
-
-  if (!turnLayer || !turnInner) return;
-
-  isBookAnimating = true;
-
-  // Prepare the turning page layer with current content.
-  const turningData = isNext ? pages[spreadIndex + 1] : pages[spreadIndex];
-  renderPageContent(turnInner, turningData);
-
-  turnLayer.classList.toggle("is-right", isNext);
-  turnLayer.classList.toggle("is-left", !isNext);
-
-  const rotateTarget = isNext ? -180 : 180;
   if (window.gsap) {
-    window.gsap.set(turnLayer, {
-      autoAlpha: 1,
-      rotateY: 0,
-      transformOrigin: isNext ? "left center" : "right center",
+    window.gsap.set(book, {
+      x: bookShift,
+      y: bookShiftY,
+      width: targetWidth,
+      height: targetHeight,
     });
-    window.gsap.to(turnLayer, {
-      rotateY: rotateTarget,
-      duration: 1,
-      ease: "power2.inOut",
-      onComplete: () => {
-        renderSpread(book, nextIndex);
-        window.gsap.set(turnLayer, { autoAlpha: 0, rotateY: 0 });
-        isBookAnimating = false;
-      },
-    });
+    if (cover) {
+      window.gsap.set(cover, { width: coverWidth });
+    }
   } else {
-    renderSpread(book, nextIndex);
-    turnLayer.style.opacity = "0";
-    isBookAnimating = false;
+    book.style.transform = `translate3d(${bookShift}px, ${bookShiftY}px, 0)`;
+    book.style.width = `${targetWidth}px`;
+    book.style.height = `${targetHeight}px`;
+    if (cover) {
+      cover.style.width = `${coverWidth}px`;
+    }
   }
 };
 
+// ======================================================================
+// EVENTS & DATA LOADING
+// ======================================================================
 const attachLibraryEvents = () => {
   if (!libraryShelves) return;
 
@@ -1220,14 +1468,14 @@ const attachLibraryEvents = () => {
     const book = event.target.closest(".book");
     if (book) {
       if (book.dataset.empty === "true") return;
-      openBook(book);
+      requestBookOpen(book);
     }
   });
 
   document.addEventListener("click", (event) => {
     if (!activeBook) return;
     if (event.target.closest(".book")) return;
-    closeBook();
+    requestBookClose();
   });
 };
 
@@ -1245,6 +1493,7 @@ const loadClients = async () => {
 
 const updateLibraryLayout = () => {
   if (!libraryShelves || !clientsData.length) return;
+  if (activeBook || isTransitioning) return;
   const mode = isLibraryMobile() ? "mobile" : "desktop";
   if (mode === libraryMode) return;
   renderLibrary(currentLang);
@@ -1312,6 +1561,9 @@ const loadTranslations = async () => {
   }
 };
 
+// ======================================================================
+// EVENT BINDINGS
+// ======================================================================
 langButtons.forEach((button) => {
   button.addEventListener("click", () => {
     setLanguage(button.dataset.lang);
@@ -1354,6 +1606,9 @@ serviceLinks.forEach((link) => {
   });
 });
 
+// ======================================================================
+// INITIALIZATION
+// ======================================================================
 readServiceFromUrl();
 updateHeaderState();
 loadTranslations();
