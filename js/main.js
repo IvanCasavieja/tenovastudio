@@ -154,7 +154,16 @@ const mockTemplates = {
       <div class="mb-top"><span></span><span></span><span></span><i></i></div>
       <div class="mb-body">
         <div class="mb-side">
-          <span class="is-active"></span><span></span><span></span><span></span><span></span><span></span>
+          <b class="mb-brand">MKTG</b>
+          <b class="is-active">Inicio</b>
+          <b>Calendario</b>
+          <b>Cenefas</b>
+          <b>Redes</b>
+          <b>Medios</b>
+          <b>Competencia</b>
+          <b>Redexpres</b>
+          <b>Finanzas</b>
+          <b>Admin</b>
         </div>
         <div class="mb-main">
           <div class="mb-tiles">
@@ -176,51 +185,42 @@ const mockTemplates = {
       </div>
     </div>`,
   app: `
-    <div class="mock-phone">
+    <div class="mock-phone mock-phone--nad">
       <div class="mp-notch"></div>
-      <div class="mp-header"><span class="mp-line" style="--w: 46%"></span><i></i></div>
+      <div class="mp-apptitle">Nuestro Alimento Diario</div>
       <div class="mp-card">
-        <span class="mp-badge"></span>
-        <span class="mp-line" style="--w: 92%"></span>
-        <span class="mp-line" style="--w: 78%"></span>
-        <span class="mp-line" style="--w: 52%"></span>
+        <span class="mp-badge-text">Alimento de hoy</span>
+        <p class="mp-verse">"El Señor es mi pastor; nada me faltará."</p>
+        <span class="mp-ref">Salmo 23:1</span>
         <div class="mp-player">
           <i class="mp-play"></i>
           <span class="mp-progress"><b></b></span>
         </div>
       </div>
-      <div class="mp-chips"><span></span><span></span><span></span></div>
+      <div class="mp-chips mp-chips--text">
+        <span>Guardar</span><span>Compartir</span><span>Comunidad</span>
+      </div>
       <div class="mp-nav"><span class="is-active"></span><span></span><span></span><span></span></div>
     </div>`,
   marketplace: `
-    <div class="mock-phone">
+    <div class="mock-phone mock-phone--tuki">
       <div class="mp-notch"></div>
-      <div class="mp-search"><i></i><span class="mp-line" style="--w: 55%"></span></div>
+      <div class="mp-search"><i></i><span class="mp-search-text">¿Qué necesitás resolver?</span></div>
       <div class="mp-item">
         <i class="mp-avatar"></i>
-        <div class="mp-item-lines">
-          <span class="mp-line" style="--w: 72%"></span>
-          <span class="mp-line" style="--w: 46%"></span>
-        </div>
-        <b class="mp-pill"></b>
+        <div class="mp-item-txt"><b>Electricista</b><span>Pocitos · ★ 4,9</span></div>
+        <b class="mp-wa">WhatsApp</b>
       </div>
       <div class="mp-item">
         <i class="mp-avatar"></i>
-        <div class="mp-item-lines">
-          <span class="mp-line" style="--w: 64%"></span>
-          <span class="mp-line" style="--w: 40%"></span>
-        </div>
-        <b class="mp-pill"></b>
+        <div class="mp-item-txt"><b>Repostería casera</b><span>Centro · ★ 5,0</span></div>
+        <b class="mp-wa">WhatsApp</b>
       </div>
       <div class="mp-item">
         <i class="mp-avatar"></i>
-        <div class="mp-item-lines">
-          <span class="mp-line" style="--w: 78%"></span>
-          <span class="mp-line" style="--w: 52%"></span>
-        </div>
-        <b class="mp-pill"></b>
+        <div class="mp-item-txt"><b>Jardinería</b><span>Malvín · ★ 4,8</span></div>
+        <b class="mp-wa">WhatsApp</b>
       </div>
-      <div class="mp-fab"></div>
       <div class="mp-nav"><span class="is-active"></span><span></span><span></span><span></span></div>
     </div>`,
 };
