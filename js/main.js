@@ -314,29 +314,10 @@ const setupServiceCardAnimations = () => {
   const trigger = serviceGrid || document.querySelector(".services");
   if (!trigger) return;
 
-  const getColumns = () => {
-    if (!serviceGrid) return 2;
-    const template = getComputedStyle(serviceGrid).gridTemplateColumns;
-    const count = template ? template.split(" ").filter(Boolean).length : 0;
-    return count || 2;
-  };
-
-  const setDirections = () => {
-    const columns = Math.max(1, getColumns());
-    serviceCards.forEach((card, index) => {
-      const columnIndex = index % columns;
-      const direction =
-        columns === 1 || columnIndex < columns / 2 ? "left" : "right";
-      card.dataset.reveal = direction;
-    });
-  };
-
-  const getOffset = (card) => (card.dataset.reveal === "left" ? -200 : 200);
-
   const setHidden = (card) => {
     card.dataset.state = "hidden";
     card.style.opacity = "0";
-    card.style.transform = `translateX(${getOffset(card)}px)`;
+    card.style.transform = "translateY(44px)";
   };
 
   const showAll = () => {
@@ -344,11 +325,10 @@ const setupServiceCardAnimations = () => {
       if (card.dataset.state === "visible") return;
       card.dataset.state = "visible";
       card.style.opacity = "1";
-      card.style.transform = "translateX(0)";
+      card.style.transform = "translateY(0)";
     });
   };
 
-  setDirections();
   serviceCards.forEach(setHidden);
 
   const observer = new IntersectionObserver(
@@ -356,12 +336,11 @@ const setupServiceCardAnimations = () => {
       entries.forEach((entry) => {
         if (entry.target !== trigger) return;
         if (entry.isIntersecting) {
-          setDirections();
           showAll();
         }
       });
     },
-    { threshold: 0, rootMargin: "0px 0px -10px 0px" }
+    { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
   );
 
   observer.observe(trigger);

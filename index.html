@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
@@ -61,8 +61,25 @@
       <main>
         <!-- ===== Hero ===== -->
         <section id="inicio" class="hero">
-          <div class="hero-cover-overlay">
+          <div class="hero-glow hero-glow--one" aria-hidden="true"></div>
+          <div class="hero-glow hero-glow--two" aria-hidden="true"></div>
+          <div class="hero-inner">
+            <p class="hero-kicker" data-i18n="hero.kicker">
+              Estudio creativo y tecnología aplicada
+            </p>
             <h1 class="hero-title">Tenova Studio</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+              Diseñamos, desarrollamos y hacemos crecer productos digitales con
+              una mirada editorial: claridad, detalle y resultados medibles.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-dark" href="#proyectos" data-i18n="hero.ctaProjects">
+                Ver proyectos
+              </a>
+              <a class="btn btn-outline" href="#contacto" data-i18n="hero.ctaContact">
+                Conversemos
+              </a>
+            </div>
           </div>
         </section>
 
@@ -170,80 +187,84 @@
               </p>
             </div>
             <div class="service-grid">
-            <article class="service-card" style="--delay: 0ms">
-              <img src="assets/images/analisis.jpg" alt="Análisis" loading="lazy" decoding="async" />
-              <div class="card-body">
-                <h3 data-i18n="services.analysis.title">Análisis</h3>
-                <p data-i18n="services.analysis.desc">
-                  Diagnósticos de marca, auditorías digitales y data storytelling
-                  para tomar decisiones con claridad.
-                </p>
-                <a
-                  class="btn btn-outline"
-                  href="?service=Analisis#contacto"
-                  data-service="Analisis"
-                  data-i18n="services.cta"
-                >
-                  Contactanos
-                </a>
-              </div>
+            <article class="service-card service-card--analisis" style="--delay: 0ms">
+              <span class="service-num">01</span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"></line><rect x="5" y="11" width="3" height="7" rx="1"></rect><rect x="10.5" y="8" width="3" height="10" rx="1"></rect><rect x="16" y="5" width="3" height="13" rx="1"></rect></svg>
+              </span>
+              <h3 data-i18n="services.analysis.title">Análisis</h3>
+              <p data-i18n="services.analysis.desc">
+                Diagnósticos de marca, auditorías digitales y data storytelling
+                para tomar decisiones con claridad.
+              </p>
+              <a
+                class="text-link"
+                href="?service=Analisis#contacto"
+                data-service="Analisis"
+                data-i18n="services.cta"
+              >
+                Contactanos
+              </a>
             </article>
 
-            <article class="service-card" style="--delay: 120ms">
-              <img src="assets/images/marketing.jpg" alt="Marketing" loading="lazy" decoding="async" />
-              <div class="card-body">
-                <h3 data-i18n="services.marketing.title">Marketing</h3>
-                <p data-i18n="services.marketing.desc">
-                  Narrativas, contenido premium y campañas de performance con
-                  estética coherente y lenguaje propio.
-                </p>
-                <a
-                  class="btn btn-outline"
-                  href="?service=Marketing#contacto"
-                  data-service="Marketing"
-                  data-i18n="services.cta"
-                >
-                  Contactanos
-                </a>
-              </div>
+            <article class="service-card service-card--marketing" style="--delay: 120ms">
+              <span class="service-num">02</span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h4l7-4v10l-7-4H4z"></path><path d="M8 13v4a2 2 0 0 0 2 2"></path><line x1="17" y1="9" x2="20" y2="8"></line><line x1="17" y1="12" x2="20" y2="12"></line><line x1="17" y1="15" x2="20" y2="16"></line></svg>
+              </span>
+              <h3 data-i18n="services.marketing.title">Marketing</h3>
+              <p data-i18n="services.marketing.desc">
+                Narrativas, contenido premium y campañas de performance con
+                estética coherente y lenguaje propio.
+              </p>
+              <a
+                class="text-link"
+                href="?service=Marketing#contacto"
+                data-service="Marketing"
+                data-i18n="services.cta"
+              >
+                Contactanos
+              </a>
             </article>
 
-            <article class="service-card" style="--delay: 240ms">
-              <img src="assets/images/desarrollo.jpg" alt="Desarrollo" loading="lazy" decoding="async" />
-              <div class="card-body">
-                <h3 data-i18n="services.desarrollo.title">Desarrollo</h3>
-                <p data-i18n="services.desarrollo.desc">
-                  Sitios web a medida, performance optimizada y experiencias
-                  responsive con identidad cuidada.
-                </p>
-                <a
-                  class="btn btn-outline"
-                  href="?service=Desarrollo#contacto"
-                  data-service="Desarrollo"
-                  data-i18n="services.cta"
-                >
-                  Contactanos
-                </a>
-              </div>
+            <article class="service-card service-card--desarrollo" style="--delay: 240ms">
+              <span class="service-num">03</span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 5 12 9 18"></polyline><polyline points="15 6 19 12 15 18"></polyline></svg>
+              </span>
+              <h3 data-i18n="services.desarrollo.title">Desarrollo</h3>
+              <p data-i18n="services.desarrollo.desc">
+                Sitios web a medida, performance optimizada y experiencias
+                responsive con identidad cuidada.
+              </p>
+              <a
+                class="text-link"
+                href="?service=Desarrollo#contacto"
+                data-service="Desarrollo"
+                data-i18n="services.cta"
+              >
+                Contactanos
+              </a>
             </article>
 
-            <article class="service-card" style="--delay: 360ms">
-              <img src="assets/images/automatizacion.jpg" alt="Automatización" loading="lazy" decoding="async" />
-              <div class="card-body">
-                <h3 data-i18n="services.automatizacion.title">Automatización</h3>
-                <p data-i18n="services.automatizacion.desc">
-                  Flujos inteligentes, integraciones y herramientas internas para
-                  escalar procesos sin perder estilo.
-                </p>
-                <a
-                  class="btn btn-outline"
-                  href="?service=Automatizacion#contacto"
-                  data-service="Automatizacion"
-                  data-i18n="services.cta"
-                >
-                  Contactanos
-                </a>
-              </div>
+            <article class="service-card service-card--automatizacion" style="--delay: 360ms">
+              <span class="service-num">04</span>
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 4.5v2.2M12 17.3v2.2M4.7 12h2.2M17.1 12h2.2M6.1 6.1l1.6 1.6M16.3 16.3l1.6 1.6M6.1 17.9l1.6-1.6M16.3 7.7l1.6-1.6"></path></svg>
+              </span>
+              <h3 data-i18n="services.automatizacion.title">Automatización</h3>
+              <p data-i18n="services.automatizacion.desc">
+                Flujos inteligentes, integraciones y herramientas internas para
+                escalar procesos sin perder estilo.
+              </p>
+              <a
+                class="text-link"
+                href="?service=Automatizacion#contacto"
+                data-service="Automatizacion"
+                data-i18n="services.cta"
+              >
+                Contactanos
+              </a>
             </article>
             </div>
           </div>
