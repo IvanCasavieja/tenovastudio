@@ -16,17 +16,17 @@
             { "value": "8", "label": "Módulos en producción" },
             { "value": "+95", "label": "Funcionalidades operativas" },
             { "value": "300K", "label": "Precios relevados por semana" },
-            { "value": "5", "label": "Asistentes de IA propios" }
+            { "value": "5", "label": "Agentes de IA propios" }
           ],
           "modulesTitle": "Qué resuelve, módulo por módulo",
           "modules": [
             { "name": "Calendario unificado", "text": "Acciones, Retail Media, envíos y headers del mes en una sola vista, con fichas por acción y recordatorios programados." },
-            { "name": "Cenefas", "text": "La cartelería de góndola se genera en tanda: hasta 100 cenefas por corrida desde el Excel de gestión, con revisión previa y plantillas por campaña." },
+            { "name": "Cenefas", "text": "La cartelería de góndola se genera en tanda: hasta 100 cenefas por corrida a partir de una planilla de ofertas, con revisión previa y plantillas por campaña." },
             { "name": "Redes sociales", "text": "La IA valida hasta 150 placas contra el mailing letra por letra — precios, legales, logos — en 6 a 17 segundos por placa." },
-            { "name": "Medios digitales", "text": "Inversión, ROAS y alertas de Meta, Google, TikTok y DV360 en un tablero, con tres IA que analizan y recomiendan." },
+            { "name": "Medios digitales", "text": "Inversión, ROAS y alertas de Meta, Google, TikTok y DV360 en un tablero, con tres IA que analizan y el modelo Meridian midiendo el aporte real de cada medio." },
             { "name": "Informe de competencia", "text": "Búsqueda en vivo en 17 cadenas, más de 300.000 precios semanales, listas de monitoreo y avisos de cambio de precio." },
-            { "name": "Redexpres", "text": "Las 60 sucursales cargan y confirman online su pedido mensual de cartelería, con topes por material y seguimiento." },
-            { "name": "Finanzas", "text": "La IA lee las facturas en PDF y propone cuenta y movimiento; una persona confirma. Presupuesto y canjes siempre al día." },
+            { "name": "Pedidos de sucursales", "text": "Las 60 sucursales cargan y confirman online su pedido mensual de cartelería, con topes por material y seguimiento." },
+            { "name": "Finanzas", "text": "La IA lee las facturas en PDF y propone cuenta y movimiento; una persona confirma. Un tablero vivo muestra presupuesto y canjes siempre al día." },
             { "name": "Administración", "text": "Usuarios, roles y 30 permisos individuales, auditoría completa y control del gasto en IA por persona y por función." }
           ]
         },
@@ -40,17 +40,17 @@
             { "value": "8", "label": "Modules in production" },
             { "value": "+95", "label": "Live features" },
             { "value": "300K", "label": "Prices surveyed weekly" },
-            { "value": "5", "label": "In-house AI assistants" }
+            { "value": "5", "label": "In-house AI agents" }
           ],
           "modulesTitle": "What it solves, module by module",
           "modules": [
             { "name": "Unified calendar", "text": "Campaigns, Retail Media, sendouts and home headers in one view, with per-action detail and scheduled reminders." },
-            { "name": "Shelf signage", "text": "In-store signage generated in batches: up to 100 signs per run straight from the management Excel, with preview and per-campaign templates." },
+            { "name": "Shelf signage", "text": "In-store signage generated in batches: up to 100 signs per run straight from an offer spreadsheet, with preview and per-campaign templates." },
             { "name": "Social media", "text": "AI validates up to 150 creatives against the mailing letter by letter — prices, legals, logos — in 6 to 17 seconds each." },
-            { "name": "Digital media", "text": "Spend, ROAS and alerts from Meta, Google, TikTok and DV360 in one dashboard, with three AIs analyzing and recommending." },
+            { "name": "Digital media", "text": "Spend, ROAS and alerts from Meta, Google, TikTok and DV360 in one dashboard, with three AIs analyzing and the Meridian model measuring each channel's real contribution." },
             { "name": "Competitor report", "text": "Live search across 17 retail chains, over 300,000 prices per week, watchlists and price-change alerts." },
-            { "name": "Redexpres", "text": "All 60 stores enter and confirm their monthly signage order online, with per-material caps and tracking." },
-            { "name": "Finance", "text": "AI reads PDF invoices and proposes account and entry; a person confirms. Budget and trade deals always up to date." },
+            { "name": "Store ordering", "text": "All 60 stores enter and confirm their monthly signage order online, with per-material caps and tracking." },
+            { "name": "Finance", "text": "AI reads PDF invoices and proposes account and entry; a person confirms. A live dashboard keeps budget and trade deals up to date." },
             { "name": "Administration", "text": "Users, roles and 30 individual permissions, full audit trail and AI-spend control per person and per feature." }
           ]
         },
@@ -64,17 +64,17 @@
             { "value": "8", "label": "Módulos em produção" },
             { "value": "+95", "label": "Funcionalidades ativas" },
             { "value": "300K", "label": "Preços levantados por semana" },
-            { "value": "5", "label": "Assistentes de IA próprios" }
+            { "value": "5", "label": "Agentes de IA próprios" }
           ],
           "modulesTitle": "O que resolve, módulo por módulo",
           "modules": [
             { "name": "Calendário unificado", "text": "Ações, Retail Media, envios e headers do mês em uma só tela, com ficha por ação e lembretes programados." },
-            { "name": "Cartazes", "text": "Os cartazes de gôndola saem em lote: até 100 por rodada direto do Excel de gestão, com revisão prévia e templates por campanha." },
+            { "name": "Cartazes", "text": "Os cartazes de gôndola saem em lote: até 100 por rodada a partir de uma planilha de ofertas, com revisão prévia e templates por campanha." },
             { "name": "Redes sociais", "text": "A IA valida até 150 peças contra o mailing letra por letra — preços, textos legais, logos — em 6 a 17 segundos cada." },
-            { "name": "Mídia digital", "text": "Investimento, ROAS e alertas de Meta, Google, TikTok e DV360 em um painel, com três IAs analisando e recomendando." },
+            { "name": "Mídia digital", "text": "Investimento, ROAS e alertas de Meta, Google, TikTok e DV360 em um painel, com três IAs analisando e o modelo Meridian medindo a contribuição real de cada mídia." },
             { "name": "Relatório da concorrência", "text": "Busca ao vivo em 17 redes, mais de 300.000 preços por semana, listas de monitoramento e avisos de mudança de preço." },
-            { "name": "Redexpres", "text": "As 60 lojas preenchem e confirmam online seu pedido mensal de cartazes, com limites por material e acompanhamento." },
-            { "name": "Finanças", "text": "A IA lê as notas em PDF e propõe conta e lançamento; uma pessoa confirma. Orçamento e permutas sempre em dia." },
+            { "name": "Pedidos das lojas", "text": "As 60 lojas preenchem e confirmam online seu pedido mensal de cartazes, com limites por material e acompanhamento." },
+            { "name": "Finanças", "text": "A IA lê as notas em PDF e propõe conta e lançamento; uma pessoa confirma. Um painel vivo mostra orçamento e permutas sempre em dia." },
             { "name": "Administração", "text": "Usuários, papéis e 30 permissões individuais, auditoria completa e controle do gasto em IA por pessoa e por função." }
           ]
         },
@@ -88,17 +88,17 @@
             { "value": "8", "label": "Moduli in produzione" },
             { "value": "+95", "label": "Funzionalità attive" },
             { "value": "300K", "label": "Prezzi rilevati a settimana" },
-            { "value": "5", "label": "Assistenti IA propri" }
+            { "value": "5", "label": "Agenti IA propri" }
           ],
           "modulesTitle": "Cosa risolve, modulo per modulo",
           "modules": [
             { "name": "Calendario unificato", "text": "Azioni, Retail Media, invii e header del mese in un'unica vista, con scheda per azione e promemoria programmati." },
-            { "name": "Cartelli", "text": "I cartelli da scaffale escono in lotti: fino a 100 per esecuzione direttamente dall'Excel gestionale, con anteprima e template per campagna." },
+            { "name": "Cartelli", "text": "I cartelli da scaffale escono in lotti: fino a 100 per esecuzione a partire da un foglio offerte, con anteprima e template per campagna." },
             { "name": "Social media", "text": "L'IA valida fino a 150 grafiche contro il mailing lettera per lettera — prezzi, note legali, loghi — in 6-17 secondi ciascuna." },
-            { "name": "Media digitali", "text": "Investimento, ROAS e alert di Meta, Google, TikTok e DV360 in un'unica dashboard, con tre IA che analizzano e raccomandano." },
+            { "name": "Media digitali", "text": "Investimento, ROAS e alert di Meta, Google, TikTok e DV360 in un'unica dashboard, con tre IA che analizzano e il modello Meridian che misura il contributo reale di ogni canale." },
             { "name": "Report concorrenza", "text": "Ricerca dal vivo in 17 catene, oltre 300.000 prezzi a settimana, liste di monitoraggio e avvisi di cambio prezzo." },
-            { "name": "Redexpres", "text": "I 60 punti vendita compilano e confermano online l'ordine mensile di cartelli, con limiti per materiale e tracciamento." },
-            { "name": "Finanze", "text": "L'IA legge le fatture in PDF e propone conto e movimento; una persona conferma. Budget e permute sempre aggiornati." },
+            { "name": "Ordini dei punti vendita", "text": "I 60 punti vendita compilano e confermano online l'ordine mensile di cartelli, con limiti per materiale e tracciamento." },
+            { "name": "Finanze", "text": "L'IA legge le fatture in PDF e propone conto e movimento; una persona conferma. Una dashboard viva mostra budget e permute sempre aggiornati." },
             { "name": "Amministrazione", "text": "Utenti, ruoli e 30 permessi individuali, audit completo e controllo della spesa IA per persona e per funzione." }
           ]
         }

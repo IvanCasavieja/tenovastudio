@@ -161,7 +161,7 @@ const mockTemplates = {
           <b>Redes</b>
           <b>Medios</b>
           <b>Competencia</b>
-          <b>Redexpres</b>
+          <b>Pedidos</b>
           <b>Finanzas</b>
           <b>Admin</b>
         </div>
