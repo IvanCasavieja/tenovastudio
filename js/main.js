@@ -10,6 +10,8 @@ const header = document.querySelector(".header");
 const navWrap = document.querySelector(".nav-wrap");
 const menuToggle = document.querySelector(".menu-toggle");
 const langButtons = document.querySelectorAll(".lang-btn");
+const langSwitch = document.querySelector(".lang-switch");
+const langIndicator = document.querySelector(".lang-indicator");
 const langSelect = document.querySelector(".lang-select");
 const projectsList = document.querySelector("#projects-list");
 
@@ -84,6 +86,7 @@ const setMenuState = (isOpen) => {
   menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
   menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu");
   document.body.classList.toggle("menu-open", isOpen);
+  requestAnimationFrame(updateLangIndicator);
 };
 
 const toggleMenu = () => {
@@ -96,6 +99,41 @@ const handleResize = () => {
   if (window.innerWidth > MENU_BREAKPOINT) {
     setMenuState(false);
   }
+  updateLangIndicator();
+};
+
+// ======================================================================
+// LANGUAGE SWITCH INDICATOR
+// ======================================================================
+const updateLangIndicator = () => {
+  if (!langIndicator || !langSwitch) return;
+  const active = langSwitch.querySelector(".lang-btn.is-active");
+  if (!active || active.offsetWidth === 0) {
+    langIndicator.style.opacity = "0";
+    return;
+  }
+  langIndicator.style.opacity = "1";
+  langIndicator.style.width = `${active.offsetWidth}px`;
+  langIndicator.style.transform = `translateX(${active.offsetLeft}px)`;
+};
+
+// ======================================================================
+// SPOTLIGHT HOVER (cards follow the cursor)
+// ======================================================================
+const attachSpotlight = (elements) => {
+  const fine =
+    window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+  if (!fine) return;
+  elements.forEach((el) => {
+    if (el.dataset.spot === "true") return;
+    el.dataset.spot = "true";
+    el.classList.add("spot");
+    el.addEventListener("pointermove", (event) => {
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+      el.style.setProperty("--my", `${event.clientY - rect.top}px`);
+    });
+  });
 };
 
 // ======================================================================
@@ -108,6 +146,83 @@ const storeIcons = {
     '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.54c-.03-2.89 2.36-4.28 2.47-4.35-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.72 1.13-4.72 2.86-2.01 3.49-.51 8.66 1.45 11.49.96 1.39 2.1 2.94 3.6 2.89 1.44-.06 1.99-.93 3.73-.93s2.23.93 3.76.9c1.55-.03 2.53-1.41 3.48-2.8 1.09-1.61 1.54-3.17 1.57-3.25-.03-.02-3-1.15-3.02-4.59zM14.16 4.06c.8-.96 1.33-2.3 1.18-3.64-1.14.05-2.53.76-3.35 1.72-.73.85-1.38 2.21-1.21 3.52 1.28.1 2.59-.65 3.38-1.6z"/></svg>',
   web:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"></path></svg>',
+};
+
+const mockTemplates = {
+  dashboard: `
+    <div class="mock-browser">
+      <div class="mb-top"><span></span><span></span><span></span><i></i></div>
+      <div class="mb-body">
+        <div class="mb-side">
+          <span class="is-active"></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="mb-main">
+          <div class="mb-tiles">
+            <div class="mb-tile"><i></i><b></b></div>
+            <div class="mb-tile"><i></i><b></b></div>
+            <div class="mb-tile"><i></i><b></b></div>
+          </div>
+          <div class="mb-chart">
+            <span style="--h: 42%; --d: 0ms"></span>
+            <span style="--h: 66%; --d: 140ms"></span>
+            <span style="--h: 50%; --d: 280ms"></span>
+            <span style="--h: 82%; --d: 420ms"></span>
+            <span style="--h: 58%; --d: 560ms"></span>
+            <span style="--h: 90%; --d: 700ms"></span>
+            <span style="--h: 72%; --d: 840ms"></span>
+          </div>
+          <div class="mb-rows"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>`,
+  app: `
+    <div class="mock-phone">
+      <div class="mp-notch"></div>
+      <div class="mp-header"><span class="mp-line" style="--w: 46%"></span><i></i></div>
+      <div class="mp-card">
+        <span class="mp-badge"></span>
+        <span class="mp-line" style="--w: 92%"></span>
+        <span class="mp-line" style="--w: 78%"></span>
+        <span class="mp-line" style="--w: 52%"></span>
+        <div class="mp-player">
+          <i class="mp-play"></i>
+          <span class="mp-progress"><b></b></span>
+        </div>
+      </div>
+      <div class="mp-chips"><span></span><span></span><span></span></div>
+      <div class="mp-nav"><span class="is-active"></span><span></span><span></span><span></span></div>
+    </div>`,
+  marketplace: `
+    <div class="mock-phone">
+      <div class="mp-notch"></div>
+      <div class="mp-search"><i></i><span class="mp-line" style="--w: 55%"></span></div>
+      <div class="mp-item">
+        <i class="mp-avatar"></i>
+        <div class="mp-item-lines">
+          <span class="mp-line" style="--w: 72%"></span>
+          <span class="mp-line" style="--w: 46%"></span>
+        </div>
+        <b class="mp-pill"></b>
+      </div>
+      <div class="mp-item">
+        <i class="mp-avatar"></i>
+        <div class="mp-item-lines">
+          <span class="mp-line" style="--w: 64%"></span>
+          <span class="mp-line" style="--w: 40%"></span>
+        </div>
+        <b class="mp-pill"></b>
+      </div>
+      <div class="mp-item">
+        <i class="mp-avatar"></i>
+        <div class="mp-item-lines">
+          <span class="mp-line" style="--w: 78%"></span>
+          <span class="mp-line" style="--w: 52%"></span>
+        </div>
+        <b class="mp-pill"></b>
+      </div>
+      <div class="mp-fab"></div>
+      <div class="mp-nav"><span class="is-active"></span><span></span><span></span><span></span></div>
+    </div>`,
 };
 
 const getProjectCopy = (project, lang) =>
@@ -146,13 +261,23 @@ const buildProjectTags = (copy) => {
   return wrap;
 };
 
-const buildProjectCard = (project, lang, index) => {
+const buildProjectPanel = (project, lang, index) => {
   const copy = getProjectCopy(project, lang);
-  const card = document.createElement("article");
-  card.className = "project-card";
+  const panel = document.createElement("article");
+  panel.className = "project-panel";
   if (project.featured) {
-    card.classList.add("is-featured");
+    panel.classList.add("is-featured");
   }
+  if (index % 2 === 1) {
+    panel.classList.add("is-flipped");
+  }
+
+  const main = document.createElement("div");
+  main.className = "project-main";
+
+  // --- text column
+  const content = document.createElement("div");
+  content.className = "project-content";
 
   const head = document.createElement("div");
   head.className = "project-head";
@@ -161,34 +286,30 @@ const buildProjectCard = (project, lang, index) => {
   indexEl.className = "project-index";
   indexEl.textContent = String(index + 1).padStart(2, "0");
 
-  const headings = document.createElement("div");
-  headings.className = "project-headings";
-
   const kicker = document.createElement("span");
   kicker.className = "project-kicker";
   kicker.textContent = copy.kicker || "";
 
+  head.appendChild(indexEl);
+  head.appendChild(kicker);
+  content.appendChild(head);
+
   const name = document.createElement("h3");
   name.className = "project-name";
   name.textContent = copy.name || "";
+  content.appendChild(name);
 
-  const client = document.createElement("p");
-  client.className = "project-client";
-  client.textContent = copy.client || "";
-
-  headings.appendChild(kicker);
-  headings.appendChild(name);
-  if (client.textContent) {
-    headings.appendChild(client);
+  if (copy.client) {
+    const client = document.createElement("p");
+    client.className = "project-client";
+    client.textContent = copy.client;
+    content.appendChild(client);
   }
-  head.appendChild(indexEl);
-  head.appendChild(headings);
-  card.appendChild(head);
 
   const description = document.createElement("p");
   description.className = "project-description";
   description.textContent = copy.description || "";
-  card.appendChild(description);
+  content.appendChild(description);
 
   if (Array.isArray(copy.stats) && copy.stats.length) {
     const stats = document.createElement("dl");
@@ -205,15 +326,35 @@ const buildProjectCard = (project, lang, index) => {
       cell.appendChild(label);
       stats.appendChild(cell);
     });
-    card.appendChild(stats);
+    content.appendChild(stats);
   }
+
+  const footer = document.createElement("div");
+  footer.className = "project-footer";
+  const tags = buildProjectTags(copy);
+  const links = buildProjectLinks(project);
+  if (tags) footer.appendChild(tags);
+  if (links) footer.appendChild(links);
+  if (footer.childNodes.length) {
+    content.appendChild(footer);
+  }
+
+  // --- visual column
+  const visual = document.createElement("div");
+  visual.className = "project-visual";
+  visual.setAttribute("aria-hidden", "true");
+  visual.innerHTML = mockTemplates[project.mock] || mockTemplates.dashboard;
+
+  main.appendChild(content);
+  main.appendChild(visual);
+  panel.appendChild(main);
 
   if (Array.isArray(copy.modules) && copy.modules.length) {
     const modulesTitle = document.createElement("span");
     modulesTitle.className = "project-modules-title";
     modulesTitle.textContent = copy.modulesTitle || "";
     if (modulesTitle.textContent) {
-      card.appendChild(modulesTitle);
+      panel.appendChild(modulesTitle);
     }
     const modules = document.createElement("div");
     modules.className = "project-modules";
@@ -229,30 +370,20 @@ const buildProjectCard = (project, lang, index) => {
       item.appendChild(moduleText);
       modules.appendChild(item);
     });
-    card.appendChild(modules);
+    panel.appendChild(modules);
   }
 
-  const footer = document.createElement("div");
-  footer.className = "project-footer";
-  const tags = buildProjectTags(copy);
-  const links = buildProjectLinks(project);
-  if (tags) footer.appendChild(tags);
-  if (links) footer.appendChild(links);
-  if (footer.childNodes.length) {
-    card.appendChild(footer);
-  }
-
-  return card;
+  return panel;
 };
 
 const setupProjectsReveal = () => {
   if (!projectsList) return;
-  const cards = projectsList.querySelectorAll(".project-card");
+  const panels = projectsList.querySelectorAll(".project-panel");
   const prefersReducedMotion =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReducedMotion || !window.IntersectionObserver) {
-    cards.forEach((card) => card.classList.add("is-visible"));
+    panels.forEach((panel) => panel.classList.add("is-visible"));
     return;
   }
   if (projectsRevealObserver) {
@@ -267,9 +398,9 @@ const setupProjectsReveal = () => {
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
   );
-  cards.forEach((card) => projectsRevealObserver.observe(card));
+  panels.forEach((panel) => projectsRevealObserver.observe(panel));
 };
 
 const renderProjects = (lang) => {
@@ -277,10 +408,11 @@ const renderProjects = (lang) => {
   projectsList.innerHTML = "";
   const fragment = document.createDocumentFragment();
   projectsData.forEach((project, index) => {
-    fragment.appendChild(buildProjectCard(project, lang, index));
+    fragment.appendChild(buildProjectPanel(project, lang, index));
   });
   projectsList.appendChild(fragment);
   setupProjectsReveal();
+  attachSpotlight(projectsList.querySelectorAll(".project-panel"));
 };
 
 const loadProjects = async () => {
@@ -300,43 +432,25 @@ const loadProjects = async () => {
 // ======================================================================
 const setupServiceCardAnimations = () => {
   if (!serviceCards.length) return;
+  attachSpotlight(serviceCards);
   const prefersReducedMotion =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReducedMotion || !window.IntersectionObserver) {
-    serviceCards.forEach((card) => {
-      card.style.opacity = "1";
-      card.style.transform = "none";
-    });
+    serviceCards.forEach((card) => card.classList.add("is-visible"));
     return;
   }
 
   const trigger = serviceGrid || document.querySelector(".services");
   if (!trigger) return;
 
-  const setHidden = (card) => {
-    card.dataset.state = "hidden";
-    card.style.opacity = "0";
-    card.style.transform = "translateY(44px)";
-  };
-
-  const showAll = () => {
-    serviceCards.forEach((card) => {
-      if (card.dataset.state === "visible") return;
-      card.dataset.state = "visible";
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    });
-  };
-
-  serviceCards.forEach(setHidden);
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.target !== trigger) return;
         if (entry.isIntersecting) {
-          showAll();
+          serviceCards.forEach((card) => card.classList.add("is-visible"));
+          observer.unobserve(trigger);
         }
       });
     },
@@ -414,6 +528,7 @@ const setActiveLang = (lang) => {
   if (langSelect) {
     langSelect.value = lang;
   }
+  requestAnimationFrame(updateLangIndicator);
 };
 
 const setLanguage = (lang) => {
@@ -506,6 +621,11 @@ loadTranslations();
 loadProjects();
 setupServiceCardAnimations();
 setupAboutReveal();
+updateLangIndicator();
+
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(updateLangIndicator);
+}
 
 window.addEventListener("scroll", updateHeaderState, { passive: true });
 window.addEventListener("resize", handleResize);

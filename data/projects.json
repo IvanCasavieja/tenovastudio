@@ -3,6 +3,7 @@
     {
       "id": "mktg-platform",
       "featured": true,
+      "mock": "dashboard",
       "links": [],
       "i18n": {
         "es": {
@@ -106,6 +107,7 @@
     {
       "id": "nuestro-alimento-diario",
       "featured": false,
+      "mock": "app",
       "links": [
         { "type": "google-play", "url": "https://play.google.com/store/apps/details?id=com.nuestroalimentodiario", "label": "Google Play" },
         { "type": "app-store", "url": "https://apps.apple.com/app/nuestro-alimento-diario/id6757828414", "label": "App Store" }
@@ -144,6 +146,7 @@
     {
       "id": "tuki",
       "featured": false,
+      "mock": "marketplace",
       "links": [
         { "type": "web", "url": "https://tukiuy.com", "label": "tukiuy.com" }
       ],
