@@ -1,0 +1,182 @@
+{
+  "projects": [
+    {
+      "id": "mktg-platform",
+      "featured": true,
+      "links": [],
+      "i18n": {
+        "es": {
+          "kicker": "Caso de éxito · Retail",
+          "name": "Marketing Platform",
+          "client": "Plataforma interna para una de las cadenas de supermercados más grandes del país",
+          "description": "Una sola plataforma que unifica toda la operación de marketing: el calendario promocional, la producción de cartelería, la validación de piezas con IA, el monitoreo de precios de la competencia, las finanzas del área y los pedidos de 60 sucursales. Procesos que llevaban horas de trabajo manual — armar cartelería en PowerPoint, controlar placas contra el mailing, relevar precios cadena por cadena — hoy corren en minutos.",
+          "tags": ["Desarrollo", "Automatización", "Análisis", "IA aplicada"],
+          "stats": [
+            { "value": "8", "label": "Módulos en producción" },
+            { "value": "+95", "label": "Funcionalidades operativas" },
+            { "value": "300K", "label": "Precios relevados por semana" },
+            { "value": "5", "label": "Asistentes de IA propios" }
+          ],
+          "modulesTitle": "Qué resuelve, módulo por módulo",
+          "modules": [
+            { "name": "Calendario unificado", "text": "Acciones, Retail Media, envíos y headers del mes en una sola vista, con fichas por acción y recordatorios programados." },
+            { "name": "Cenefas", "text": "La cartelería de góndola se genera en tanda: hasta 100 cenefas por corrida desde el Excel de gestión, con revisión previa y plantillas por campaña." },
+            { "name": "Redes sociales", "text": "La IA valida hasta 150 placas contra el mailing letra por letra — precios, legales, logos — en 6 a 17 segundos por placa." },
+            { "name": "Medios digitales", "text": "Inversión, ROAS y alertas de Meta, Google, TikTok y DV360 en un tablero, con tres IA que analizan y recomiendan." },
+            { "name": "Informe de competencia", "text": "Búsqueda en vivo en 17 cadenas, más de 300.000 precios semanales, listas de monitoreo y avisos de cambio de precio." },
+            { "name": "Redexpres", "text": "Las 60 sucursales cargan y confirman online su pedido mensual de cartelería, con topes por material y seguimiento." },
+            { "name": "Finanzas", "text": "La IA lee las facturas en PDF y propone cuenta y movimiento; una persona confirma. Presupuesto y canjes siempre al día." },
+            { "name": "Administración", "text": "Usuarios, roles y 30 permisos individuales, auditoría completa y control del gasto en IA por persona y por función." }
+          ]
+        },
+        "en": {
+          "kicker": "Success story · Retail",
+          "name": "Marketing Platform",
+          "client": "Internal platform for one of the country's largest supermarket chains",
+          "description": "A single platform that unifies the entire marketing operation: the promotional calendar, in-store signage production, AI-powered creative validation, competitor price monitoring, the area's finances and orders from 60 stores. Processes that took hours of manual work — building signage in PowerPoint, checking creatives against the mailing, surveying prices chain by chain — now run in minutes.",
+          "tags": ["Development", "Automation", "Analysis", "Applied AI"],
+          "stats": [
+            { "value": "8", "label": "Modules in production" },
+            { "value": "+95", "label": "Live features" },
+            { "value": "300K", "label": "Prices surveyed weekly" },
+            { "value": "5", "label": "In-house AI assistants" }
+          ],
+          "modulesTitle": "What it solves, module by module",
+          "modules": [
+            { "name": "Unified calendar", "text": "Campaigns, Retail Media, sendouts and home headers in one view, with per-action detail and scheduled reminders." },
+            { "name": "Shelf signage", "text": "In-store signage generated in batches: up to 100 signs per run straight from the management Excel, with preview and per-campaign templates." },
+            { "name": "Social media", "text": "AI validates up to 150 creatives against the mailing letter by letter — prices, legals, logos — in 6 to 17 seconds each." },
+            { "name": "Digital media", "text": "Spend, ROAS and alerts from Meta, Google, TikTok and DV360 in one dashboard, with three AIs analyzing and recommending." },
+            { "name": "Competitor report", "text": "Live search across 17 retail chains, over 300,000 prices per week, watchlists and price-change alerts." },
+            { "name": "Redexpres", "text": "All 60 stores enter and confirm their monthly signage order online, with per-material caps and tracking." },
+            { "name": "Finance", "text": "AI reads PDF invoices and proposes account and entry; a person confirms. Budget and trade deals always up to date." },
+            { "name": "Administration", "text": "Users, roles and 30 individual permissions, full audit trail and AI-spend control per person and per feature." }
+          ]
+        },
+        "pt": {
+          "kicker": "Caso de sucesso · Varejo",
+          "name": "Marketing Platform",
+          "client": "Plataforma interna para uma das maiores redes de supermercados do país",
+          "description": "Uma única plataforma que unifica toda a operação de marketing: o calendário promocional, a produção de cartazes, a validação de peças com IA, o monitoramento de preços da concorrência, as finanças da área e os pedidos de 60 lojas. Processos que levavam horas de trabalho manual — montar cartazes no PowerPoint, conferir peças contra o mailing, levantar preços rede por rede — hoje rodam em minutos.",
+          "tags": ["Desenvolvimento", "Automatização", "Análise", "IA aplicada"],
+          "stats": [
+            { "value": "8", "label": "Módulos em produção" },
+            { "value": "+95", "label": "Funcionalidades ativas" },
+            { "value": "300K", "label": "Preços levantados por semana" },
+            { "value": "5", "label": "Assistentes de IA próprios" }
+          ],
+          "modulesTitle": "O que resolve, módulo por módulo",
+          "modules": [
+            { "name": "Calendário unificado", "text": "Ações, Retail Media, envios e headers do mês em uma só tela, com ficha por ação e lembretes programados." },
+            { "name": "Cartazes", "text": "Os cartazes de gôndola saem em lote: até 100 por rodada direto do Excel de gestão, com revisão prévia e templates por campanha." },
+            { "name": "Redes sociais", "text": "A IA valida até 150 peças contra o mailing letra por letra — preços, textos legais, logos — em 6 a 17 segundos cada." },
+            { "name": "Mídia digital", "text": "Investimento, ROAS e alertas de Meta, Google, TikTok e DV360 em um painel, com três IAs analisando e recomendando." },
+            { "name": "Relatório da concorrência", "text": "Busca ao vivo em 17 redes, mais de 300.000 preços por semana, listas de monitoramento e avisos de mudança de preço." },
+            { "name": "Redexpres", "text": "As 60 lojas preenchem e confirmam online seu pedido mensal de cartazes, com limites por material e acompanhamento." },
+            { "name": "Finanças", "text": "A IA lê as notas em PDF e propõe conta e lançamento; uma pessoa confirma. Orçamento e permutas sempre em dia." },
+            { "name": "Administração", "text": "Usuários, papéis e 30 permissões individuais, auditoria completa e controle do gasto em IA por pessoa e por função." }
+          ]
+        },
+        "it": {
+          "kicker": "Caso di successo · Retail",
+          "name": "Marketing Platform",
+          "client": "Piattaforma interna per una delle più grandi catene di supermercati del paese",
+          "description": "Un'unica piattaforma che unifica tutta l'operatività marketing: il calendario promozionale, la produzione dei cartelli, la validazione delle grafiche con IA, il monitoraggio dei prezzi della concorrenza, le finanze dell'area e gli ordini di 60 punti vendita. Processi che richiedevano ore di lavoro manuale — comporre cartelli in PowerPoint, controllare le grafiche contro il mailing, rilevare i prezzi catena per catena — oggi girano in minuti.",
+          "tags": ["Sviluppo", "Automazione", "Analisi", "IA applicata"],
+          "stats": [
+            { "value": "8", "label": "Moduli in produzione" },
+            { "value": "+95", "label": "Funzionalità attive" },
+            { "value": "300K", "label": "Prezzi rilevati a settimana" },
+            { "value": "5", "label": "Assistenti IA propri" }
+          ],
+          "modulesTitle": "Cosa risolve, modulo per modulo",
+          "modules": [
+            { "name": "Calendario unificato", "text": "Azioni, Retail Media, invii e header del mese in un'unica vista, con scheda per azione e promemoria programmati." },
+            { "name": "Cartelli", "text": "I cartelli da scaffale escono in lotti: fino a 100 per esecuzione direttamente dall'Excel gestionale, con anteprima e template per campagna." },
+            { "name": "Social media", "text": "L'IA valida fino a 150 grafiche contro il mailing lettera per lettera — prezzi, note legali, loghi — in 6-17 secondi ciascuna." },
+            { "name": "Media digitali", "text": "Investimento, ROAS e alert di Meta, Google, TikTok e DV360 in un'unica dashboard, con tre IA che analizzano e raccomandano." },
+            { "name": "Report concorrenza", "text": "Ricerca dal vivo in 17 catene, oltre 300.000 prezzi a settimana, liste di monitoraggio e avvisi di cambio prezzo." },
+            { "name": "Redexpres", "text": "I 60 punti vendita compilano e confermano online l'ordine mensile di cartelli, con limiti per materiale e tracciamento." },
+            { "name": "Finanze", "text": "L'IA legge le fatture in PDF e propone conto e movimento; una persona conferma. Budget e permute sempre aggiornati." },
+            { "name": "Amministrazione", "text": "Utenti, ruoli e 30 permessi individuali, audit completo e controllo della spesa IA per persona e per funzione." }
+          ]
+        }
+      }
+    },
+    {
+      "id": "nuestro-alimento-diario",
+      "featured": false,
+      "links": [
+        { "type": "google-play", "url": "https://play.google.com/store/apps/details?id=com.nuestroalimentodiario", "label": "Google Play" },
+        { "type": "app-store", "url": "https://apps.apple.com/app/nuestro-alimento-diario/id6757828414", "label": "App Store" }
+      ],
+      "i18n": {
+        "es": {
+          "kicker": "Producto propio · App móvil",
+          "name": "Nuestro Alimento Diario",
+          "client": "Publicada en App Store y Google Play",
+          "description": "App devocional cristiana con versos y oraciones para cada día: se leen, se escuchan, se comparten y se guardan en favoritos. Tiene comunidad moderada para publicar pedidos de oración y testimonios, y un panel de administración para cargar contenidos, aprobar publicaciones y gestionar misiones solidarias.",
+          "tags": ["Desarrollo", "Producto", "Comunidad"]
+        },
+        "en": {
+          "kicker": "Own product · Mobile app",
+          "name": "Nuestro Alimento Diario",
+          "client": "Live on the App Store and Google Play",
+          "description": "A Christian daily devotional app with verses and prayers for every day: read them, listen to them, share them and save favorites. It includes a moderated community for prayer requests and testimonies, plus an admin panel to publish content, approve posts and manage solidarity missions.",
+          "tags": ["Development", "Product", "Community"]
+        },
+        "pt": {
+          "kicker": "Produto próprio · App móvel",
+          "name": "Nosso Alimento Diário",
+          "client": "Publicado na App Store e no Google Play",
+          "description": "App devocional cristão com versículos e orações para cada dia: dá para ler, ouvir, compartilhar e salvar nos favoritos. Tem comunidade moderada para pedidos de oração e testemunhos, e um painel de administração para publicar conteúdos, aprovar posts e gerenciar missões solidárias.",
+          "tags": ["Desenvolvimento", "Produto", "Comunidade"]
+        },
+        "it": {
+          "kicker": "Prodotto proprio · App mobile",
+          "name": "Nuestro Alimento Diario",
+          "client": "Disponibile su App Store e Google Play",
+          "description": "App devozionale cristiana con versetti e preghiere per ogni giorno: si leggono, si ascoltano, si condividono e si salvano nei preferiti. Include una community moderata per richieste di preghiera e testimonianze, e un pannello di amministrazione per pubblicare contenuti, approvare post e gestire missioni solidali.",
+          "tags": ["Sviluppo", "Prodotto", "Community"]
+        }
+      }
+    },
+    {
+      "id": "tuki",
+      "featured": false,
+      "links": [
+        { "type": "web", "url": "https://tukiuy.com", "label": "tukiuy.com" }
+      ],
+      "i18n": {
+        "es": {
+          "kicker": "Producto propio · Marketplace",
+          "name": "Tuki",
+          "client": "Encontrá quien te resuelva, cerca tuyo",
+          "description": "Marketplace que conecta a quien necesita resolver algo con emprendedores y servicios de su zona, barrio por barrio en todo Uruguay. El contacto se abre directo por WhatsApp, con un sistema de créditos y pagos integrados con Mercado Pago. Funciona en iOS, Android y web.",
+          "tags": ["Desarrollo", "Producto", "Marketing"]
+        },
+        "en": {
+          "kicker": "Own product · Marketplace",
+          "name": "Tuki",
+          "client": "Find someone to get it done, near you",
+          "description": "A marketplace connecting people who need something done with entrepreneurs and services in their area, neighborhood by neighborhood across Uruguay. Contact opens directly on WhatsApp, with a credit system and payments integrated with Mercado Pago. Available on iOS, Android and the web.",
+          "tags": ["Development", "Product", "Marketing"]
+        },
+        "pt": {
+          "kicker": "Produto próprio · Marketplace",
+          "name": "Tuki",
+          "client": "Encontre quem resolve, perto de você",
+          "description": "Marketplace que conecta quem precisa resolver algo com empreendedores e serviços da sua região, bairro por bairro em todo o Uruguai. O contato abre direto no WhatsApp, com sistema de créditos e pagamentos integrados ao Mercado Pago. Funciona em iOS, Android e web.",
+          "tags": ["Desenvolvimento", "Produto", "Marketing"]
+        },
+        "it": {
+          "kicker": "Prodotto proprio · Marketplace",
+          "name": "Tuki",
+          "client": "Trova chi ti risolve, vicino a te",
+          "description": "Marketplace che collega chi ha bisogno di risolvere qualcosa con imprenditori e servizi della propria zona, quartiere per quartiere in tutto l'Uruguay. Il contatto si apre direttamente su WhatsApp, con un sistema di crediti e pagamenti integrati con Mercado Pago. Disponibile su iOS, Android e web.",
+          "tags": ["Sviluppo", "Prodotto", "Marketing"]
+        }
+      }
+    }
+  ]
+}
