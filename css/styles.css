@@ -1545,8 +1545,75 @@ main > section {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--av, rgba(255, 255, 255, 0.14));
+  color: #0c0e13;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 700;
   flex-shrink: 0;
+}
+
+.mp-zone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.mp-zone i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: #7ed321;
+  flex-shrink: 0;
+}
+
+.mp-chat {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 11px;
+  display: grid;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.mp-bubble {
+  font-size: 8.5px;
+  line-height: 1.4;
+  color: var(--text);
+  padding: 5px 9px;
+  border-radius: 10px;
+  max-width: 82%;
+}
+
+.mp-bubble--in {
+  justify-self: start;
+  background: rgba(255, 255, 255, 0.07);
+  border-bottom-left-radius: 3px;
+}
+
+.mp-bubble--out {
+  justify-self: end;
+  background: rgba(126, 211, 33, 0.14);
+  border: 1px solid rgba(126, 211, 33, 0.3);
+  border-bottom-right-radius: 3px;
+}
+
+.mp-wa-share {
+  margin-top: 2px;
+  text-align: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #0c0e13;
+  padding: 6px 0;
+  border-radius: 999px;
+  background: #7ed321;
 }
 
 .mp-item-txt {
@@ -1580,18 +1647,6 @@ main > section {
   border: 1px solid rgba(126, 211, 33, 0.45);
   background: rgba(126, 211, 33, 0.12);
   flex-shrink: 0;
-}
-
-.mp-fab {
-  position: absolute;
-  right: 22px;
-  bottom: 58px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #4ad06a;
-  box-shadow: 0 0 0 0 rgba(74, 208, 106, 0.5);
-  animation: fabPulse 2.6s var(--ease) infinite;
 }
 
 .mp-nav {
@@ -2031,18 +2086,6 @@ main > section {
   }
 }
 
-@keyframes fabPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(74, 208, 106, 0.45);
-  }
-  70% {
-    box-shadow: 0 0 0 14px rgba(74, 208, 106, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(74, 208, 106, 0);
-  }
-}
-
 /* ====================================================================== */
 /* Responsive */
 /* ====================================================================== */
@@ -2274,7 +2317,6 @@ main > section {
   .sv-dots span,
   .mb-chart span,
   .mp-progress b,
-  .mp-fab,
   .lang-indicator {
     animation: none;
     transition: none;

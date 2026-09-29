@@ -155,29 +155,53 @@
           "kicker": "Producto propio · Marketplace",
           "name": "Tuki",
           "client": "Encontrá quien te resuelva, cerca tuyo",
-          "description": "Marketplace que conecta a quien necesita resolver algo con emprendedores y servicios de su zona, barrio por barrio en todo Uruguay. El contacto se abre directo por WhatsApp, con un sistema de créditos y pagos integrados con Mercado Pago. Funciona en iOS, Android y web.",
-          "tags": ["Desarrollo", "Producto", "Marketing"]
+          "description": "Marketplace que conecta a quien necesita resolver algo con emprendedores de su zona, con cobertura de todo Uruguay por localidad y detección por GPS. El contacto pasa por un chat propio en tiempo real: el cliente escribe gratis y sin dar su teléfono, y el emprendedor decide cuándo compartir su WhatsApp desde la app. Los créditos se compran con Mercado Pago y cada conversación se cobra una sola vez; un detector propio reconoce los datos de contacto que intentan pasarse por fuera — incluso camuflados — con advertencias y apelaciones. Con calificaciones, moderación y apps en iOS, Android y web.",
+          "tags": ["Desarrollo", "Producto", "Marketing"],
+          "stats": [
+            { "value": "19", "label": "Departamentos cubiertos" },
+            { "value": "1", "label": "Crédito por conversación" },
+            { "value": "3", "label": "Plataformas: iOS, Android y web" },
+            { "value": "0", "label": "Teléfonos expuestos sin permiso" }
+          ]
         },
         "en": {
           "kicker": "Own product · Marketplace",
           "name": "Tuki",
           "client": "Find someone to get it done, near you",
-          "description": "A marketplace connecting people who need something done with entrepreneurs and services in their area, neighborhood by neighborhood across Uruguay. Contact opens directly on WhatsApp, with a credit system and payments integrated with Mercado Pago. Available on iOS, Android and the web.",
-          "tags": ["Development", "Product", "Marketing"]
+          "description": "A marketplace connecting people who need something done with entrepreneurs in their area, covering all of Uruguay by locality with GPS detection. Contact happens in a built-in real-time chat: clients write for free without sharing their phone, and entrepreneurs choose when to share their WhatsApp from the app. Credits are purchased through Mercado Pago and each conversation is charged only once; a custom detector recognizes contact details that try to slip around the app — even disguised ones — with warnings and appeals. Ratings, moderation, and apps on iOS, Android and the web.",
+          "tags": ["Development", "Product", "Marketing"],
+          "stats": [
+            { "value": "19", "label": "Departments covered" },
+            { "value": "1", "label": "Credit per conversation" },
+            { "value": "3", "label": "Platforms: iOS, Android, web" },
+            { "value": "0", "label": "Phone numbers exposed without consent" }
+          ]
         },
         "pt": {
           "kicker": "Produto próprio · Marketplace",
           "name": "Tuki",
           "client": "Encontre quem resolve, perto de você",
-          "description": "Marketplace que conecta quem precisa resolver algo com empreendedores e serviços da sua região, bairro por bairro em todo o Uruguai. O contato abre direto no WhatsApp, com sistema de créditos e pagamentos integrados ao Mercado Pago. Funciona em iOS, Android e web.",
-          "tags": ["Desenvolvimento", "Produto", "Marketing"]
+          "description": "Marketplace que conecta quem precisa resolver algo com empreendedores da sua região, cobrindo todo o Uruguai por localidade com detecção por GPS. O contato passa por um chat próprio em tempo real: o cliente escreve grátis e sem dar seu telefone, e o empreendedor decide quando compartilhar seu WhatsApp pelo app. Os créditos são comprados com Mercado Pago e cada conversa é cobrada uma só vez; um detector próprio reconhece dados de contato que tentam passar por fora — até disfarçados — com avisos e apelações. Com avaliações, moderação e apps em iOS, Android e web.",
+          "tags": ["Desenvolvimento", "Produto", "Marketing"],
+          "stats": [
+            { "value": "19", "label": "Departamentos cobertos" },
+            { "value": "1", "label": "Crédito por conversa" },
+            { "value": "3", "label": "Plataformas: iOS, Android e web" },
+            { "value": "0", "label": "Telefones expostos sem permissão" }
+          ]
         },
         "it": {
           "kicker": "Prodotto proprio · Marketplace",
           "name": "Tuki",
           "client": "Trova chi ti risolve, vicino a te",
-          "description": "Marketplace che collega chi ha bisogno di risolvere qualcosa con imprenditori e servizi della propria zona, quartiere per quartiere in tutto l'Uruguay. Il contatto si apre direttamente su WhatsApp, con un sistema di crediti e pagamenti integrati con Mercado Pago. Disponibile su iOS, Android e web.",
-          "tags": ["Sviluppo", "Prodotto", "Marketing"]
+          "description": "Marketplace che collega chi ha bisogno di risolvere qualcosa con imprenditori della propria zona, coprendo tutto l'Uruguay per località con rilevamento GPS. Il contatto passa da una chat propria in tempo reale: il cliente scrive gratis senza dare il telefono, e l'imprenditore decide quando condividere il suo WhatsApp dall'app. I crediti si comprano con Mercado Pago e ogni conversazione si paga una sola volta; un rilevatore proprio riconosce i contatti che provano a passare fuori dall'app — anche camuffati — con avvisi e appelli. Con recensioni, moderazione e app su iOS, Android e web.",
+          "tags": ["Sviluppo", "Prodotto", "Marketing"],
+          "stats": [
+            { "value": "19", "label": "Dipartimenti coperti" },
+            { "value": "1", "label": "Credito per conversazione" },
+            { "value": "3", "label": "Piattaforme: iOS, Android e web" },
+            { "value": "0", "label": "Telefoni esposti senza permesso" }
+          ]
         }
       }
     }

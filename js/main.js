@@ -205,21 +205,22 @@ const mockTemplates = {
   marketplace: `
     <div class="mock-phone mock-phone--tuki">
       <div class="mp-notch"></div>
+      <div class="mp-zone"><i></i><span>Pocitos, Montevideo</span></div>
       <div class="mp-search"><i></i><span class="mp-search-text">¿Qué necesitás resolver?</span></div>
       <div class="mp-item">
-        <i class="mp-avatar"></i>
+        <i class="mp-avatar" style="--av: #7ed321">E</i>
         <div class="mp-item-txt"><b>Electricista</b><span>Pocitos · ★ 4,9</span></div>
-        <b class="mp-wa">WhatsApp</b>
+        <b class="mp-wa">Chat</b>
       </div>
       <div class="mp-item">
-        <i class="mp-avatar"></i>
+        <i class="mp-avatar" style="--av: #f2994a">R</i>
         <div class="mp-item-txt"><b>Repostería casera</b><span>Centro · ★ 5,0</span></div>
-        <b class="mp-wa">WhatsApp</b>
+        <b class="mp-wa">Chat</b>
       </div>
-      <div class="mp-item">
-        <i class="mp-avatar"></i>
-        <div class="mp-item-txt"><b>Jardinería</b><span>Malvín · ★ 4,8</span></div>
-        <b class="mp-wa">WhatsApp</b>
+      <div class="mp-chat">
+        <span class="mp-bubble mp-bubble--in">¡Hola! ¿Hacés instalaciones?</span>
+        <span class="mp-bubble mp-bubble--out">Sí, ¿en qué zona estás?</span>
+        <b class="mp-wa-share">Pasarle mi WhatsApp</b>
       </div>
       <div class="mp-nav"><span class="is-active"></span><span></span><span></span><span></span></div>
     </div>`,
